@@ -18,18 +18,18 @@ namespace InvertedTomato.Checksum
         }
 
         [Fact]
-        public void CrcSpecifications()
+        public void AllCrcAlgorithms()
         {
             // Convert check to byte array;
             var input = Encoding.ASCII.GetBytes(CHECK_STRING);
 
             // Loop through all known CRC specifications
-            var type = typeof(CrcSpecification);
+            var type = typeof(CrcAlgorithm);
             foreach (var method in type.GetMethods(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public))
             {
                 // Select specification for testing
                 var crc = (Crc)method.Invoke(null, new Object[] { });
-                Output.WriteLine($"Testing {method.Name}... ");
+                Output.WriteLine($"Testing {crc.Name}... ");
 
                 // Determine expected output
                 var expected = crc.Check.ToHexString();
@@ -51,7 +51,7 @@ namespace InvertedTomato.Checksum
         [InlineData("", 0xFFFF)] // http://crccalc.com says the value should be 0xE1F0, however logic says it must be incorrect
         public void Crc16CittFalse(String input, UInt16 expected)
         {
-            var crc = CrcSpecification.CreateCrc16CcittFalse();
+            var crc = CrcAlgorithm.CreateCrc16CcittFalse();
 
             crc.Append(Encoding.ASCII.GetBytes(input));
             var output = crc.ToUInt64();
@@ -66,7 +66,7 @@ namespace InvertedTomato.Checksum
         [InlineData("", 0x00000000)] // http://crccalc.com says the value should be 0xD202EF8D, however logic says it must be incorrect
         public void Crc32(String input, UInt32 expected)
         {
-            var crc = CrcSpecification.CreateCrc32();
+            var crc = CrcAlgorithm.CreateCrc32();
 
             crc.Append(Encoding.ASCII.GetBytes(input));
             var output = crc.ToUInt64();
