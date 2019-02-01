@@ -18,7 +18,7 @@ namespace InvertedTomato.Checksum
 
         private readonly UInt64 Mask;
 
-        private readonly UInt64[] Lookup = new UInt64[256];
+        private readonly UInt64[] PrecomputationTable = new UInt64[256];
 
         private UInt64 Current;
 
@@ -43,7 +43,7 @@ namespace InvertedTomato.Checksum
             Mask = UInt64.MaxValue >> (64 - width);
 
             // Create lookup table
-            for (var i = 0; i < Lookup.Length; i++)
+            for (var i = 0; i < PrecomputationTable.Length; i++)
             {
                 var r = (UInt64)i;
                 if (isInputReflected)
@@ -74,7 +74,7 @@ namespace InvertedTomato.Checksum
                     r = ReverseBits(r, width);
                 }
 
-                Lookup[i] = r & Mask;
+                PrecomputationTable[i] = r & Mask;
             }
 
             Clear();
@@ -103,14 +103,14 @@ namespace InvertedTomato.Checksum
         {
             if (IsOutputReflected)
             {
-                Current = (Lookup[(Current ^ input) & 0xFF] ^ (Current >> 8));
+                Current = (PrecomputationTable[(Current ^ input) & 0xFF] ^ (Current >> 8));
             }
             else
             {
                 var toRight = (Width - 8); // TODO: don't do on every Append
                 toRight = toRight < 0 ? 0 : toRight;// TODO: don't do on every Append
 
-                Current = (Lookup[((Current >> toRight) ^ input) & 0xFF] ^ (Current << 8));
+                Current = (PrecomputationTable[((Current >> toRight) ^ input) & 0xFF] ^ (Current << 8));
             }
 
             Current &= Mask; // TODO: required on every cycle?
@@ -154,7 +154,7 @@ namespace InvertedTomato.Checksum
         public void Clear()
         {
             // Initialise current
-            Current = Initial;
+            Current = IsOutputReflected ? ReverseBits(Initial,Width) : Initial;
         }
 
 

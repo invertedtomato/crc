@@ -41,8 +41,35 @@ namespace InvertedTomato.Checksum
 
                 // Check output;
                 Assert.Equal(expected, output);
-
             }
+        }
+
+        [Theory]
+        [InlineData("123456789", 0x29B1)]
+        [InlineData("cake", 0x0146)]
+        [InlineData("rain", 0xBB5C)]
+        [InlineData("", 0xE1F0)]
+        public void Crc16CittFalse(String input, UInt16 expected)
+        {
+            var crc = CrcSpecification.CreateCrc16CcittFalse();
+            crc.Append(Encoding.ASCII.GetBytes(input));
+            var output = crc.ToUInt64();
+
+            Assert.Equal(expected, output);
+        }
+
+        [Theory]
+        [InlineData("123456789", 0xCBF43926)]
+        [InlineData("cake", 0xFA13015D)]
+        [InlineData("rain", 0xB7528AAD)]
+        [InlineData("", 0xD202EF8D)]
+        public void Crc32(String input, UInt32 expected)
+        {
+            var crc = CrcSpecification.CreateCrc32();
+            crc.Append(Encoding.ASCII.GetBytes(input));
+            var output = crc.ToUInt64();
+
+            Assert.Equal(expected, output);
         }
     }
 }
