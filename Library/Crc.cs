@@ -3,7 +3,7 @@ using System.Text;
 
 namespace InvertedTomato.Checksum
 {
-    /// https://github.com/meetanthony/crccsharp
+    /// Based around https://github.com/meetanthony/crccsharp
     public class Crc
     {
         public readonly Int32 Width;
@@ -140,6 +140,8 @@ namespace InvertedTomato.Checksum
                     crc &= Mask;
                 }
             }
+
+            crc ^= OutputXor;
 
             return crc;
         }
