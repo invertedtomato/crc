@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using Xunit;
 using Xunit.Abstractions;
+using InvertedTomato.Checksum.Extensions;
 
 namespace InvertedTomato.Checksum
 {
@@ -24,13 +25,22 @@ namespace InvertedTomato.Checksum
 
             // Loop through all known CRC specifications
             var type = typeof(CrcSpecification);
-            foreach (var property in type.GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public))
+            foreach (var method in type.GetMethods(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public))
             {
-                var crc = (Crc)property.GetValue(null);
+                // Select specification for testing
+                var crc = (Crc)method.Invoke(null, new Object[] { });
+                Output.WriteLine($"Testing {method.Name}... ");
 
-                // Execute check run on specification
-                Output.WriteLine($"Testing {property.Name}... ");
-                Assert.Equal(crc.Check.ToHexString(), crc.Compute(input).ToHexString().TrimStart('0')); // TODO: Remove TrimStart
+                // Determine expected output
+                var expected = crc.Check.ToHexString();
+                expected = new String('0', crc.Width / 8 * 2 - expected.Length) + expected; // Pad with zero prefix
+
+                // Run specification
+                crc.Append(input);
+                var output = crc.ToHexString();
+
+                // Check output;
+                Assert.Equal(expected, output);
 
             }
         }

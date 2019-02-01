@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using InvertedTomato.Checksum.Extensions;
 
 namespace InvertedTomato.Checksum
 {
@@ -19,6 +20,7 @@ namespace InvertedTomato.Checksum
 
         private readonly UInt64[] Lookup = new UInt64[256];
 
+        private UInt64 Current;
 
 
         public Crc(Int32 width, UInt64 polynomial, UInt64 initial, Boolean isInputReflected, Boolean isOutputReflected, UInt64 outputXor, UInt64 check = 0)
@@ -74,46 +76,58 @@ namespace InvertedTomato.Checksum
 
                 Lookup[i] = r & Mask;
             }
+
+            Clear();
         }
 
-        public Byte[] Compute(Byte[] input)
+
+        public void Append(Byte[] input)
         {
-            return Compute(input, 0, input.Length);
+            Append(input, 0, input.Length);
         }
 
-        private Byte[] Compute(Byte[] input, Int32 offset, Int32 length)
+        public void Append(Byte[] input, Int32 offset, Int32 count)
         {
             if (null == input)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            var crc = Initial;
+            for (var i = offset; i < offset + count; i++)
+            {
+                Append(input[i]);
+            }
+        }
 
+        public void Append(Byte input)
+        {
             if (IsOutputReflected)
             {
-                for (var i = offset; i < offset + length; i++)
-                {
-                    crc = (Lookup[(crc ^ input[i]) & 0xFF] ^ (crc >> 8));
-                    crc &= Mask;
-                }
+                Current = (Lookup[(Current ^ input) & 0xFF] ^ (Current >> 8));
             }
             else
             {
-                var toRight = (Width - 8);
-                toRight = toRight < 0 ? 0 : toRight;
-                for (var i = offset; i < offset + length; i++)
-                {
-                    crc = (Lookup[((crc >> toRight) ^ input[i]) & 0xFF] ^ (crc << 8));
-                    crc &= Mask;
-                }
+                var toRight = (Width - 8); // TODO: don't do on every Append
+                toRight = toRight < 0 ? 0 : toRight;// TODO: don't do on every Append
+
+                Current = (Lookup[((Current >> toRight) ^ input) & 0xFF] ^ (Current << 8));
             }
 
+            Current &= Mask; // TODO: required on every cycle?
+        }
+
+        public UInt64 ToUInt64()
+        {
             // Apply output XOR
-            crc ^= OutputXor;
+            return Current ^ OutputXor;
+        }
+
+        public Byte[] ToByteArray()
+        {
+            var output = ToUInt64();
 
             // Convert result to correct-sized byte array
-            var result = BitConverter.GetBytes(crc);  // TODO: This all smells bad
+            var result = BitConverter.GetBytes(output);  // TODO: This all smells bad
             if (BitConverter.IsLittleEndian)
             {
                 Array.Resize(ref result, Width / 8);
@@ -126,6 +140,24 @@ namespace InvertedTomato.Checksum
 
             return result;
         }
+
+        public String ToHexString()
+        {
+            return ToByteArray().ToHexString();
+        }
+        public Byte[] ComputeByteArray(Byte[] input)
+        {
+            Append(input);
+            return ToByteArray();
+        }
+
+        public void Clear()
+        {
+            // Initialise current
+            Current = Initial;
+        }
+
+
 
         private static UInt64 ReverseBits(UInt64 value, Int32 valueLength)
         {

@@ -1,10 +1,9 @@
 
 using System;
-using Xunit;
 
-namespace InvertedTomato.Checksum
+namespace InvertedTomato.Checksum.Extensions
 {
-    public static class Extensions
+    public static class HexStringExtensions
     {
         public static String ToHexString(this UInt64 target)
         {
