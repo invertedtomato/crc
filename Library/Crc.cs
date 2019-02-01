@@ -43,7 +43,7 @@ namespace InvertedTomato.Checksum
             // Create lookup table
             for (var i = 0; i < Lookup.Length; i++)
             {
-                UInt64 r = (UInt64)i;
+                var r = (UInt64)i;
                 if (isInputReflected)
                 {
                     r = ReverseBits(r, width);
@@ -76,79 +76,56 @@ namespace InvertedTomato.Checksum
             }
         }
 
-        public byte[] ComputeBytes(String input)
+        public Byte[] Compute(Byte[] input)
         {
-            if (null == input)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-            return ComputeBytes(Encoding.ASCII.GetBytes(input));
-        }
-
-        public byte[] ComputeBytes(Byte[] input)
-        {
-            if (null == input)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-
-            return BitConverter.GetBytes(Compute(input));
-        }
-
-        public UInt64 Compute(String input)
-        {
-            if (null == input)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-            return Compute(Encoding.ASCII.GetBytes(input));
-        }
-
-        public UInt64 Compute(Byte[] input)
-        {
-            if (null == input)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-
             return Compute(input, 0, input.Length);
         }
 
-        private UInt64 Compute(Byte[] data, Int32 offset, Int32 length)
+        private Byte[] Compute(Byte[] input, Int32 offset, Int32 length)
         {
+            if (null == input)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
             var crc = Initial;
 
             if (IsOutputReflected)
             {
                 for (var i = offset; i < offset + length; i++)
                 {
-                    crc = (Lookup[(crc ^ data[i]) & 0xFF] ^ (crc >> 8));
+                    crc = (Lookup[(crc ^ input[i]) & 0xFF] ^ (crc >> 8));
                     crc &= Mask;
                 }
             }
             else
             {
-                Int32 toRight = (Width - 8);
+                var toRight = (Width - 8);
                 toRight = toRight < 0 ? 0 : toRight;
-                for (Int32 i = offset; i < offset + length; i++)
+                for (var i = offset; i < offset + length; i++)
                 {
-                    crc = (Lookup[((crc >> toRight) ^ data[i]) & 0xFF] ^ (crc << 8));
+                    crc = (Lookup[((crc >> toRight) ^ input[i]) & 0xFF] ^ (crc << 8));
                     crc &= Mask;
                 }
             }
 
+            // Apply output XOR
             crc ^= OutputXor;
 
-            return crc;
+            // Convert result to correct-sized byte array
+            var result = BitConverter.GetBytes(crc);  // TODO: This all smells bad
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Resize(ref result, Width / 8);
+                Array.Reverse(result);
+            }
+            else
+            {
+                Array.Resize(ref result, Width / 8);
+            }
+
+            return result;
         }
-
-
-
-
 
         private static UInt64 ReverseBits(UInt64 value, Int32 valueLength)
         {

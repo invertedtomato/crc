@@ -10,7 +10,7 @@ namespace InvertedTomato.Checksum
                 if (null == _Crc8)
                 {
 
-                    _Crc8 = new Crc(8, 0x7, 0x0, false, false, 0x0, 0xF4);
+                    _Crc8 = new Crc(8, 0x7, 0x00, false, false, 0x00, 0xF4);
                 }
                 return _Crc8;
             }
@@ -23,7 +23,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc8Cdma2000)
                 {
-                    _Crc8Cdma2000 = new Crc(8, 0x9B, 0xFF, false, false, 0x0, 0xDA);
+                    _Crc8Cdma2000 = new Crc(8, 0x9B, 0xFF, false, false, 0x00, 0xDA);
                 }
                 return _Crc8Cdma2000;
             }
@@ -36,7 +36,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc8Darc)
                 {
-                    _Crc8Darc = new Crc(8, 0x39, 0x0, true, true, 0x0, 0x15);
+                    _Crc8Darc = new Crc(8, 0x39, 0x00, true, true, 0x00, 0x15);
                 }
                 return _Crc8Darc;
             }
@@ -49,7 +49,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc8DvbS2)
                 {
-                    _Crc8DvbS2 = new Crc(8, 0xD5, 0x0, false, false, 0x0, 0xBC);
+                    _Crc8DvbS2 = new Crc(8, 0xD5, 0x00, false, false, 0x00, 0xBC);
                 }
                 return _Crc8DvbS2;
             }
@@ -62,7 +62,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc8Ebu)
                 {
-                    _Crc8Ebu = new Crc(8, 0x1D, 0xFF, true, true, 0x0, 0x97);
+                    _Crc8Ebu = new Crc(8, 0x1D, 0xFF, true, true, 0x00, 0x97);
                 }
                 return _Crc8Ebu;
             }
@@ -75,7 +75,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc8ICode)
                 {
-                    _Crc8ICode = new Crc(8, 0x1D, 0xFD, false, false, 0x0, 0x7E);
+                    _Crc8ICode = new Crc(8, 0x1D, 0xFD, false, false, 0x00, 0x7E);
                 }
                 return _Crc8ICode;
             }
@@ -88,7 +88,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc8Itu)
                 {
-                    _Crc8Itu = new Crc(8, 0x7, 0x0, false, false, 0x55, 0xA1);
+                    _Crc8Itu = new Crc(8, 0x07, 0x00, false, false, 0x55, 0xA1);
                 }
                 return _Crc8Itu;
             }
@@ -101,7 +101,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc8Maxim)
                 {
-                    _Crc8Maxim = new Crc(8, 0x31, 0x0, true, true, 0x0, 0xA1);
+                    _Crc8Maxim = new Crc(8, 0x31, 0x00, true, true, 0x00, 0xA1);
                 }
                 return _Crc8Maxim;
             }
@@ -114,7 +114,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc8Rohc)
                 {
-                    _Crc8Rohc = new Crc(8, 0x7, 0xFF, true, true, 0x0, 0xD0);
+                    _Crc8Rohc = new Crc(8, 0x07, 0xFF, true, true, 0x00, 0xD0);
                 }
                 return _Crc8Rohc;
             }
@@ -127,7 +127,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc8Wcdma)
                 {
-                    _Crc8Wcdma = new Crc(8, 0x9B, 0x0, true, true, 0x0, 0x25);
+                    _Crc8Wcdma = new Crc(8, 0x9B, 0x00, true, true, 0x00, 0x25);
                 }
                 return _Crc8Wcdma;
             }
@@ -142,7 +142,7 @@ namespace InvertedTomato.Checksum
                 {
 
                     //CRC-16
-                    _Crc16CcittFalse = new Crc(16, 0x1021, 0xFFFF, false, false, 0x0, 0x29B1);
+                    _Crc16CcittFalse = new Crc(16, 0x1021, 0xFFFF, false, false, 0x0000, 0x29B1);
                 }
                 return _Crc16CcittFalse;
             }
@@ -155,7 +155,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Arc)
                 {
-                    _Crc16Arc = new Crc(16, 0x8005, 0x0, true, true, 0x0, 0xBB3D);
+                    _Crc16Arc = new Crc(16, 0x8005, 0x0000, true, true, 0x0000, 0xBB3D);
                 }
                 return _Crc16Arc;
             }
@@ -168,7 +168,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16AugCcitt)
                 {
-                    _Crc16AugCcitt = new Crc(16, 0x1021, 0x1D0F, false, false, 0x0, 0xE5CC);
+                    _Crc16AugCcitt = new Crc(16, 0x1021, 0x1D0F, false, false, 0x0000, 0xE5CC);
                 }
                 return _Crc16AugCcitt;
             }
@@ -181,7 +181,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Buypass)
                 {
-                    _Crc16Buypass = new Crc(16, 0x8005, 0x0, false, false, 0x0, 0xFEE8);
+                    _Crc16Buypass = new Crc(16, 0x8005, 0x0000, false, false, 0x0000, 0xFEE8);
                 }
                 return _Crc16Buypass;
             }
@@ -194,7 +194,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Cdma2000)
                 {
-                    _Crc16Cdma2000 = new Crc(16, 0xC867, 0xFFFF, false, false, 0x0, 0x4C06);
+                    _Crc16Cdma2000 = new Crc(16, 0xC867, 0xFFFF, false, false, 0x0000, 0x4C06);
                 }
                 return _Crc16Cdma2000;
             }
@@ -207,7 +207,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Dds110)
                 {
-                    _Crc16Dds110 = new Crc(16, 0x8005, 0x800D, false, false, 0x0, 0x9ECF);
+                    _Crc16Dds110 = new Crc(16, 0x8005, 0x800D, false, false, 0x0000, 0x9ECF);
                 }
                 return _Crc16Dds110;
             }
@@ -220,7 +220,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16DectR)
                 {
-                    _Crc16DectR = new Crc(16, 0x589, 0x0, false, false, 0x1, 0x7E);
+                    _Crc16DectR = new Crc(16, 0x589, 0x0000, false, false, 0x0001, 0x7E);
                 }
                 return _Crc16DectR;
             }
@@ -233,7 +233,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16DectX)
                 {
-                    _Crc16DectX = new Crc(16, 0x589, 0x0, false, false, 0x0, 0x7F);
+                    _Crc16DectX = new Crc(16, 0x0589, 0x0000, false, false, 0x0000, 0x7F);
                 }
                 return _Crc16DectX;
             }
@@ -246,7 +246,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Dnp)
                 {
-                    _Crc16Dnp = new Crc(16, 0x3D65, 0x0, true, true, 0xFFFF, 0xEA82);
+                    _Crc16Dnp = new Crc(16, 0x3D65, 0x0000, true, true, 0xFFFF, 0xEA82);
                 }
                 return _Crc16Dnp;
             }
@@ -259,7 +259,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16En13757)
                 {
-                    _Crc16En13757 = new Crc(16, 0x3D65, 0x0, false, false, 0xFFFF, 0xC2B7);
+                    _Crc16En13757 = new Crc(16, 0x3D65, 0x0000, false, false, 0xFFFF, 0xC2B7);
                 }
                 return _Crc16En13757;
             }
@@ -285,7 +285,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Maxim)
                 {
-                    _Crc16Maxim = new Crc(16, 0x8005, 0x0, true, true, 0xFFFF, 0x44C2);
+                    _Crc16Maxim = new Crc(16, 0x8005, 0x0000, true, true, 0xFFFF, 0x44C2);
                 }
                 return _Crc16Maxim;
             }
@@ -298,7 +298,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Mcrf4Xx)
                 {
-                    _Crc16Mcrf4Xx = new Crc(16, 0x1021, 0xFFFF, true, true, 0x0, 0x6F91);
+                    _Crc16Mcrf4Xx = new Crc(16, 0x1021, 0xFFFF, true, true, 0x0000, 0x6F91);
                 }
                 return _Crc16Mcrf4Xx;
             }
@@ -311,7 +311,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Riello)
                 {
-                    _Crc16Riello = new Crc(16, 0x1021, 0xB2AA, true, true, 0x0, 0x63D0);
+                    _Crc16Riello = new Crc(16, 0x1021, 0xB2AA, true, true, 0x0000, 0x63D0);
                 }
                 return _Crc16Riello;
             }
@@ -324,7 +324,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16T10Dif)
                 {
-                    _Crc16T10Dif = new Crc(16, 0x8BB7, 0x0, false, false, 0x0, 0xD0DB);
+                    _Crc16T10Dif = new Crc(16, 0x8BB7, 0x0000, false, false, 0x0000, 0xD0DB);
                 }
                 return _Crc16T10Dif;
             }
@@ -337,7 +337,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Teledisk)
                 {
-                    _Crc16Teledisk = new Crc(16, 0xA097, 0x0, false, false, 0x0, 0xFB3);
+                    _Crc16Teledisk = new Crc(16, 0xA097, 0x0000, false, false, 0x0000, 0xFB3);
                 }
                 return _Crc16Teledisk;
             }
@@ -350,7 +350,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Tms37157)
                 {
-                    _Crc16Tms37157 = new Crc(16, 0x1021, 0x89EC, true, true, 0x0, 0x26B1);
+                    _Crc16Tms37157 = new Crc(16, 0x1021, 0x89EC, true, true, 0x0000, 0x26B1);
                 }
                 return _Crc16Tms37157;
             }
@@ -376,7 +376,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _CrcA)
                 {
-                    _CrcA = new Crc(16, 0x1021, 0xC6C6, true, true, 0x0, 0xBF05);
+                    _CrcA = new Crc(16, 0x1021, 0xC6C6, true, true, 0x0000, 0xBF05);
                 }
                 return _CrcA;
             }
@@ -389,7 +389,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Kermit)
                 {
-                    _Crc16Kermit = new Crc(16, 0x1021, 0x0, true, true, 0x0, 0x2189);
+                    _Crc16Kermit = new Crc(16, 0x1021, 0x0000, true, true, 0x0000, 0x2189);
                 }
                 return _Crc32;
             }
@@ -402,7 +402,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Modbus)
                 {
-                    _Crc16Modbus = new Crc(16, 0x8005, 0xFFFF, true, true, 0x0, 0x4B37);
+                    _Crc16Modbus = new Crc(16, 0x8005, 0xFFFF, true, true, 0x0000, 0x4B37);
                 }
                 return _Crc16Modbus;
             }
@@ -428,7 +428,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc16Xmodem)
                 {
-                    _Crc16Xmodem = new Crc(16, 0x1021, 0x0, false, false, 0x0, 0x31C3);
+                    _Crc16Xmodem = new Crc(16, 0x1021, 0x0000, false, false, 0x0000, 0x31C3);
                 }
                 return _Crc16Xmodem;
             }
@@ -441,7 +441,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc24)
                 {
-                    _Crc24 = new Crc(24, 0x864CFB, 0xB704CE, false, false, 0x0, 0x21CF02);
+                    _Crc24 = new Crc(24, 0x864CFB, 0xB704CE, false, false, 0x000000, 0x21CF02);
                 }
                 return _Crc24;
             }
@@ -454,7 +454,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc24FlexrayA)
                 {
-                    _Crc24FlexrayA = new Crc(24, 0x5D6DCB, 0xFEDCBA, false, false, 0x0, 0x7979BD);
+                    _Crc24FlexrayA = new Crc(24, 0x5D6DCB, 0xFEDCBA, false, false, 0x000000, 0x7979BD);
                 }
                 return _Crc24FlexrayA;
             }
@@ -467,7 +467,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc24FlexrayB)
                 {
-                    _Crc24FlexrayB = new Crc(24, 0x5D6DCB, 0xABCDEF, false, false, 0x0, 0x1F23B8);
+                    _Crc24FlexrayB = new Crc(24, 0x5D6DCB, 0xABCDEF, false, false, 0x000000, 0x1F23B8);
                 }
                 return _Crc24FlexrayB;
             }
@@ -597,7 +597,7 @@ namespace InvertedTomato.Checksum
             {
                 if (null == _Crc40Gsm)
                 {
-                    _Crc40Gsm = new Crc(40, 0x4820009, 0x0, false, false, 0xFFFFFFFFFF, 0xD4164FC646);
+                    _Crc40Gsm = new Crc(40, 0x4820009, 0x0000, false, false, 0xFFFFFFFFFF, 0xD4164FC646);
                 }
                 return _Crc40Gsm;
             }

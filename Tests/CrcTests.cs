@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -18,34 +19,20 @@ namespace InvertedTomato.Checksum
         [Fact]
         public void CrcSpecifications()
         {
-            var type = typeof(CrcSpecification);
-            foreach (var p in type.GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public))
-            {
-                var v = (Crc)p.GetValue(null); // static classes cannot be instanced, so use null...
-                                               //do something with v
+            // Convert check to byte array;
+            var input = Encoding.ASCII.GetBytes(CHECK_STRING);
 
-                Output.WriteLine($"Testing {p.Name}... ");
-                Assert.Equal(v.Check.ToHexString(), v.Compute(CHECK_STRING).ToHexString());
+            // Loop through all known CRC specifications
+            var type = typeof(CrcSpecification);
+            foreach (var property in type.GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public))
+            {
+                var crc = (Crc)property.GetValue(null);
+
+                // Execute check run on specification
+                Output.WriteLine($"Testing {property.Name}... ");
+                Assert.Equal(crc.Check.ToHexString(), crc.Compute(input).ToHexString().TrimStart('0')); // TODO: Remove TrimStart
 
             }
-        }
-
-        [Fact]
-        public void Crc8()
-        {
-            Assert.Equal(CrcSpecification.Crc8.Check.ToHexString(), CrcSpecification.Crc8.Compute(CHECK_STRING).ToHexString());
-        }
-
-        [Fact]
-        public void Crc16CcittFalse()
-        {
-            Assert.Equal(CrcSpecification.Crc16CcittFalse.Check.ToHexString(), CrcSpecification.Crc16CcittFalse.Compute(CHECK_STRING).ToHexString());
-        }
-
-        [Fact]
-        public void Crc32()
-        {
-            Assert.Equal(CrcSpecification.Crc32.Check.ToHexString(), CrcSpecification.Crc32.Compute(CHECK_STRING).ToHexString());
         }
     }
 }

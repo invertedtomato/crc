@@ -10,5 +10,9 @@ namespace InvertedTomato.Checksum
         {
             return target.ToString("X").Replace("-", "");
         }
+
+        public static String ToHexString(this Byte[] target){
+            return BitConverter.ToString(target).Replace("-","");
+        }
     }
 }
