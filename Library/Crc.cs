@@ -62,13 +62,13 @@ namespace InvertedTomato.IO {
 
 		private readonly UInt64[] PrecomputationTable = new UInt64[256];
 
+		private readonly Int32 ToRight;
+
 		/// <summary> Width of the algorithm expressed in bits.</summary>
 		/// <remarks>This is one less bit than the width of the Polynomial.</remarks>
 		public readonly Int32 Width;
 
 		private UInt64 Current;
-
-		private readonly Int32 ToRight;
 
 
 		public Crc(String name, Int32 width, UInt64 polynomial, UInt64 initial, Boolean isInputReflected, Boolean isOutputReflected, UInt64 outputXor, UInt64 check = 0) {
@@ -137,6 +137,12 @@ namespace InvertedTomato.IO {
 		public void Append(Byte[] input, Int32 offset, Int32 count) {
 			if (null == input) {
 				throw new ArgumentNullException(nameof(input));
+			}
+			if (offset < 0) {
+				throw new ArgumentOutOfRangeException((nameof(offset)));
+			}
+			if(count < 0 || offset + count > input.Length) {
+				throw new ArgumentOutOfRangeException(nameof(count));
 			}
 
 			for (var i = offset; i < offset + count; i++) {
