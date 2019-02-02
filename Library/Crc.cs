@@ -1,7 +1,7 @@
 ﻿using System;
-using InvertedTomato.Checksum.Extensions;
+using InvertedTomato.IO.Extensions;
 
-namespace InvertedTomato.Checksum
+namespace InvertedTomato.IO
 {
     /// <summary>
     ///     Library for computing CRCs of any algorithm in sizes of 8-64bits.

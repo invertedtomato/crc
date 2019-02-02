@@ -1,6 +1,6 @@
 using System;
 
-namespace InvertedTomato.Checksum.Extensions
+namespace InvertedTomato.IO.Extensions
 {
     public static class HexStringExtensions
     {

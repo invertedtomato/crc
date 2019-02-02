@@ -1,10 +1,10 @@
 using System.Reflection;
 using System.Text;
-using InvertedTomato.Checksum.Extensions;
+using InvertedTomato.IO.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace InvertedTomato.Checksum
+namespace InvertedTomato.IO
 {
     public class CrcTests
     {

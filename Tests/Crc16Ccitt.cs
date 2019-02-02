@@ -1,6 +1,6 @@
 using System;
 
-namespace InvertedTomato.Checksum
+namespace InvertedTomato.IO
 {
     public static class Crc16Ccitt // http://sanity-free.org/133/crc_16_ccitt_in_csharp.html
     {
