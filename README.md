@@ -85,3 +85,6 @@ CRC-64/XZ | `CrcAlgorithm.CreateCrc64Xz()`
 
 ## Further reading
 If you're keen to know more about CRC, I can't over-recommend [Ross N. Williams's 'A Painless Guide ot CRC Error Detection Algorithms](https://raw.githubusercontent.com/invertedtomato/crc/master/Reference/crc_v3.txt). I haven't been able to find the original URL of it though, so I've mirrored it here.
+
+## Where do I get it from?
+You can [find it on NuGet](https://www.nuget.org/packages/InvertedTomato.Crc/).
