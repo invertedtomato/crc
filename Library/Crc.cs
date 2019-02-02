@@ -68,6 +68,8 @@ namespace InvertedTomato.IO {
 
 		private UInt64 Current;
 
+		private readonly Int32 ToRight;
+
 
 		public Crc(String name, Int32 width, UInt64 polynomial, UInt64 initial, Boolean isInputReflected, Boolean isOutputReflected, UInt64 outputXor, UInt64 check = 0) {
 			if (width < 8 || width > 64) {
@@ -90,7 +92,7 @@ namespace InvertedTomato.IO {
 			// Create lookup table
 			for (var i = 0; i < PrecomputationTable.Length; i++) {
 				var r = (UInt64) i;
-				if (isInputReflected) {
+				if (IsInputReflected) {
 					r = ReverseBits(r, width);
 				} else if (width > 8) {
 					r <<= width - 8;
@@ -100,17 +102,23 @@ namespace InvertedTomato.IO {
 
 				for (var j = 0; j < 8; j++) {
 					if ((r & lastBit) != 0) {
-						r = (r << 1) ^ polynomial;
+						r = (r << 1) ^ Polynomial;
 					} else {
 						r <<= 1;
 					}
 				}
 
-				if (isInputReflected) {
+				if (IsInputReflected) {
 					r = ReverseBits(r, width);
 				}
 
 				PrecomputationTable[i] = r & Mask;
+			}
+
+			// Calculate non-reflected output adjustment
+			if (!IsOutputReflected) {
+				ToRight = Width - 8;
+				ToRight = ToRight < 0 ? 0 : ToRight;
 			}
 
 			Clear();
@@ -141,34 +149,35 @@ namespace InvertedTomato.IO {
 			if (IsOutputReflected) {
 				Current = PrecomputationTable[(Current ^ input) & 0xFF] ^ (Current >> 8);
 			} else {
-				var toRight = Width - 8; // TODO: don't do on every Append
-				toRight = toRight < 0 ? 0 : toRight; // TODO: don't do on every Append
-
-				Current = PrecomputationTable[((Current >> toRight) ^ input) & 0xFF] ^ (Current << 8);
+				Current = PrecomputationTable[((Current >> ToRight) ^ input) & 0xFF] ^ (Current << 8);
 			}
-
-			Current &= Mask; // TODO: required on every cycle?
 		}
 
-		/// <summary> Retrieve the CRC of the bytes that have been input so far.</summary>
+		/// <summary>Retrieve the CRC of the bytes that have been input so far.</summary>
 		public UInt64 ToUInt64() {
-			// Apply output XOR
-			return Current ^ OutputXor;
+			// Apply output XOR and mask unwanted bits
+			return (Current ^ OutputXor) & Mask;
 		}
 
 
 		/// <summary> Retrieve the CRC of the bytes that have been input so far.</summary>
 		public Byte[] ToByteArray() {
+			// TODO: this could be significantly optimised
 			var output = ToUInt64();
 
-			// Convert result to correct-sized byte array
-			var result = BitConverter.GetBytes(output); // TODO: This all smells bad
-			if (BitConverter.IsLittleEndian) {
-				Array.Resize(ref result, Width / 8);
+			// Convert to byte array
+			var result = BitConverter.GetBytes(output);
+
+			// Correct for big-endian 
+			if (!BitConverter.IsLittleEndian) {
 				Array.Reverse(result);
-			} else {
-				Array.Resize(ref result, Width / 8);
 			}
+
+			// Trim unwanted bytes
+			Array.Resize(ref result, Width / 8);
+
+			// Reverse bytes
+			Array.Reverse(result);
 
 			return result;
 		}
