@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "library", "library\library.csproj", "{237C5C62-71BC-4857-A6CE-E41169B42AF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "library\library.csproj", "{237C5C62-71BC-4857-A6CE-E41169B42AF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{7D2DA1FF-984C-48D5-AAF2-BCD2BBDA9954}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "tests\tests.csproj", "{7D2DA1FF-984C-48D5-AAF2-BCD2BBDA9954}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other", "Other", "{94AEE161-10DB-4514-B43C-F8B73BBE2252}"
 ProjectSection(SolutionItems) = preProject
