@@ -11,9 +11,9 @@
       <RepositoryUrl>https://github.com/invertedtomato/crc</RepositoryUrl>
       <RepositoryType>git</RepositoryType>
       <PackageTags>crc,crc8,crc16,crc32,crc64,hash</PackageTags>
-      <PackageVersion>1.0.2</PackageVersion>
+      <PackageVersion>1.1.0</PackageVersion>
       <AssemblyName>InvertedTomato.Crc</AssemblyName>
-      <RootNamespace>InvertedTomato.Checksum</RootNamespace>
+      <RootNamespace>InvertedTomato.IO</RootNamespace>
       <PackageId>InvertedTomato.Crc</PackageId>
   </PropertyGroup>
 

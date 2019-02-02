@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <AssemblyName>InvertedTomato.Crc.Tests</AssemblyName>
+
+    <RootNamespace>InvertedTomato.IO</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

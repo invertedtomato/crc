@@ -2,7 +2,7 @@
 ## TLDR; How do I make it go?
 ```c#
 // Create a new instance of Crc using the algorithm of your choice
-var crc = new CrcAlgorithm.CreateCrc16CcittFalse();
+var crc = CrcAlgorithm.CreateCrc16CcittFalse();
 
 // Give it some bytes to chew on - you can call this multiple times if needed
 crc.Append(Encoding.ASCII.GetBytes("Hurray for cake!"));

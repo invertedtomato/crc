@@ -2,7 +2,7 @@ using System;
 
 namespace InvertedTomato.IO
 {
-    public static class Crc16Ccitt // http://sanity-free.org/133/crc_16_ccitt_in_csharp.html
+    public static class Crc16Ccitt // Rival test algorithm adapted from http://sanity-free.org/133/crc_16_ccitt_in_csharp.html
     {
         private const ushort Poly = 4129;
         private static readonly ushort[] Table = new ushort[256];
