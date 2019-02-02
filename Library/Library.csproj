@@ -5,13 +5,13 @@
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
       <Title>InvertedTomato.Crc</Title>
       <Authors>InvertedTomato</Authors>
-      <Description>A flexible CRC implementation supporting all major algorithms. Also includes ability to support custom implementations.</Description>
+      <Description>A flexible CRC implementation supporting most major algorithms. Also includes ability to support custom implementations.</Description>
       <PackageProjectUrl>https://github.com/invertedtomato/crc</PackageProjectUrl>
       <PackageLicenseUrl>https://github.com/invertedtomato/crc/blob/master/LICENSE</PackageLicenseUrl>
       <RepositoryUrl>https://github.com/invertedtomato/crc</RepositoryUrl>
       <RepositoryType>git</RepositoryType>
       <PackageTags>crc,crc8,crc16,crc32,crc64,hash</PackageTags>
-      <PackageVersion>1.1.0</PackageVersion>
+      <PackageVersion>1.1.1</PackageVersion>
       <AssemblyName>InvertedTomato.Crc</AssemblyName>
       <RootNamespace>InvertedTomato.IO</RootNamespace>
       <PackageId>InvertedTomato.Crc</PackageId>
