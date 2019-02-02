@@ -88,7 +88,7 @@ namespace InvertedTomato.IO {
 				expected = Crc16Ccitt.ComputeInteger(new[] {i}).ToHexString(2);
 
 				// Compute actual
-				crc.Append(i);
+				crc.Append(new Byte[] {i});
 				output = crc.ToHexString();
 				crc.Clear();
 

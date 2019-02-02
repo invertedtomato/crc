@@ -2,13 +2,14 @@
 using InvertedTomato.IO.Extensions;
 
 namespace InvertedTomato.IO {
+	// TODO: consider endianness
 	/// <summary>
 	///     Library for computing CRCs of any algorithm in sizes of 8-64bits.
 	/// </summary>
 	/// <remarks>
 	///     Based loosely on https://github.com/meetanthony/crccsharp and drawing from the fantastic work from R. Williams
 	///     http://www.ross.net/crc/download/crc_v3.txt
-	///     </summary>
+	/// </remarks>
 	public class Crc {
 		/// <summary>
 		///     The checksum obtained when the ASCII string "123456789" is fed through the specified algorithm (i.e.
@@ -21,10 +22,14 @@ namespace InvertedTomato.IO {
 		/// </remarks>
 		public readonly UInt64 Check;
 
-		/// <summary>The initial value of the register when the algorithm starts.</summary>
+		/// <summary>
+		///     The initial value of the register when the algorithm starts.
+		/// </summary>
 		public readonly UInt64 Initial;
 
-		/// <summary>If the input is to be reflected before processing</summary>
+		/// <summary>
+		///     If the input is to be reflected before processing.
+		/// </summary>
 		/// <remarks>
 		///     If it is FALSE, input bytes are processed with bit 7 being treated as the most significant bit (MSB) and bit 0
 		///     being treated as the least significant bit. If this parameter is TRUE, each byte is reflected before being
@@ -32,17 +37,23 @@ namespace InvertedTomato.IO {
 		/// </remarks>
 		public readonly Boolean IsInputReflected;
 
-		/// <summary>Is the output to be reflected.</summary>
+		/// <summary>
+		///     Is the output to be reflected.
+		/// </summary>
 		/// <remarks>
 		///     If it is set to FALSE, the final value in the register is fed into the OutputXor stage directly, otherwise, if
 		///     this parameter is TRUE, the final register value is reflected first.
 		/// </remarks>
 		public readonly Boolean IsOutputReflected;
 
-
+		/// <summary>
+		/// Mask used internally to hide unwanted data in the 64bit working registers.
+		/// </summary>
 		private readonly UInt64 Mask;
 
-		///<summary>Name given to the algorithm.</summary>
+		/// <summary>
+		///     Name given to the algorithm.
+		/// </summary>
 		public readonly String Name;
 
 		/// <summary>
@@ -51,7 +62,9 @@ namespace InvertedTomato.IO {
 		/// </summary>
 		public readonly UInt64 OutputXor;
 
-		/// <summary>The polynomial used for the CRC calculation, omitting the top bit. </summary>
+		/// <summary>
+		///     The polynomial used for the CRC calculation, omitting the top bit.
+		/// </summary>
 		/// <remarks>
 		///     The top bit of the poly should be omitted. For example, if the poly is 10110, you should specify 0x06. Also,
 		///     an important aspect of this parameter is that it represents the unreflected poly; the bottom bit of this parameter
@@ -60,14 +73,24 @@ namespace InvertedTomato.IO {
 		/// </remarks>
 		public readonly UInt64 Polynomial;
 
+		/// <summary>
+		///     Lookup table that is populated at construction time to facilitate fastest possible computation.
+		/// </summary>
 		private readonly UInt64[] PrecomputationTable = new UInt64[256];
 
 		private readonly Int32 ToRight;
 
-		/// <summary> Width of the algorithm expressed in bits.</summary>
-		/// <remarks>This is one less bit than the width of the Polynomial.</remarks>
+		/// <summary>
+		///     Width of the algorithm expressed in bits.
+		/// </summary>
+		/// <remarks>
+		///     This is one less bit than the width of the Polynomial.
+		/// </remarks>
 		public readonly Int32 Width;
 
+		/// <summary>
+		///     Accumulated CRC-32C of all buffers processed so far.
+		/// </summary>
 		private UInt64 Current;
 
 
@@ -112,7 +135,7 @@ namespace InvertedTomato.IO {
 					r = ReverseBits(r, width);
 				}
 
-				PrecomputationTable[i] = r & Mask;
+				PrecomputationTable[i] = r;
 			}
 
 			// Calculate non-reflected output adjustment
@@ -121,11 +144,13 @@ namespace InvertedTomato.IO {
 				ToRight = ToRight < 0 ? 0 : ToRight;
 			}
 
+			// Initialise the current value
 			Clear();
 		}
 
-
-		/// <summary>Compute the hash of a byte array. This can be called multiple times for consecutive blocks of input.</summary>
+		/// <summary>
+		///     Compute the hash of a byte array. This can be called multiple times for consecutive blocks of input.
+		/// </summary>
 		public void Append(Byte[] input) {
 			Append(input, 0, input.Length);
 		}
@@ -138,35 +163,38 @@ namespace InvertedTomato.IO {
 			if (null == input) {
 				throw new ArgumentNullException(nameof(input));
 			}
+
 			if (offset < 0) {
-				throw new ArgumentOutOfRangeException((nameof(offset)));
+				throw new ArgumentOutOfRangeException(nameof(offset));
 			}
-			if(count < 0 || offset + count > input.Length) {
+
+			if (count < 0 || offset + count > input.Length) {
 				throw new ArgumentOutOfRangeException(nameof(count));
 			}
 
-			for (var i = offset; i < offset + count; i++) {
-				Append(input[i]);
-			}
-		}
-
-		/// <summary>Compute the hash of a byte. This can be called multiple times for consecutive bytes.</summary>
-		public void Append(Byte input) {
 			if (IsOutputReflected) {
-				Current = PrecomputationTable[(Current ^ input) & 0xFF] ^ (Current >> 8);
+				for (var i = offset; i < offset + count; i++) {
+					Current = PrecomputationTable[(Current ^ input[i]) & 0xFF] ^ (Current >> 8);
+				}
 			} else {
-				Current = PrecomputationTable[((Current >> ToRight) ^ input) & 0xFF] ^ (Current << 8);
+				for (var i = offset; i < offset + count; i++) {
+					Current = PrecomputationTable[((Current >> ToRight) ^ input[i]) & 0xFF] ^ (Current << 8);
+				}
 			}
 		}
 
-		/// <summary>Retrieve the CRC of the bytes that have been input so far.</summary>
+		/// <summary>
+		///     Retrieve the CRC of the bytes that have been input so far.
+		/// </summary>
 		public UInt64 ToUInt64() {
 			// Apply output XOR and mask unwanted bits
 			return (Current ^ OutputXor) & Mask;
 		}
 
 
-		/// <summary> Retrieve the CRC of the bytes that have been input so far.</summary>
+		/// <summary>
+		///     Retrieve the CRC of the bytes that have been input so far.
+		/// </summary>
 		public Byte[] ToByteArray() {
 			// TODO: this could be significantly optimised
 			var output = ToUInt64();
@@ -188,15 +216,18 @@ namespace InvertedTomato.IO {
 			return result;
 		}
 
-
-		/// <summary> Retrieve the CRC of the bytes that have been input so far.</summary>
+		/// <summary>
+		///     Retrieve the CRC of the bytes that have been input so far.
+		/// </summary>
 		public String ToHexString() {
 			return ToByteArray().ToHexString();
 		}
 
-		/// <summary>Reset the state so that a new set of data can be input without being affected by previous sets.</summary>
+		/// <summary>
+		///     Reset the state so that a new set of data can be input without being affected by previous sets.
+		/// </summary>
 		/// <remarks>
-		///     Typically this is called after retrieving a computed CRC (using ToByteArray for exanmple) and before calling
+		///     Typically this is called after retrieving a computed CRC (using ToByteArray() for example) and before calling
 		///     Append for a new computation run.
 		/// </remarks>
 		public void Clear() {
