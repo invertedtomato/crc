@@ -36,7 +36,24 @@ namespace InvertedTomato.IO {
 		[InlineData("rain", 0xB7528AAD)]
 		[InlineData("",
 			0x00000000)] // http://crccalc.com says the value should be 0xD202EF8D, however logic says it must be incorrect
-		public void Crc32_Samples(String input, UInt32 expected) {
+		public void Crc32_ChainingSamples(String input, UInt32 expected)
+		{
+			var output = CrcAlgorithm.CreateCrc32()
+				.Append(Encoding.ASCII.GetBytes(input))
+				.ToUInt64();
+
+			Assert.Equal(expected, output);
+		}
+
+
+		[Theory]
+		[InlineData("123456789", 0xCBF43926)]
+		[InlineData("cake", 0xFA13015D)]
+		[InlineData("rain", 0xB7528AAD)]
+		[InlineData("",
+			0x00000000)] // http://crccalc.com says the value should be 0xD202EF8D, however logic says it must be incorrect
+		public void Crc32_Samples(String input, UInt32 expected)
+		{
 			var crc = CrcAlgorithm.CreateCrc32();
 
 			crc.Append(Encoding.ASCII.GetBytes(input));
@@ -44,6 +61,7 @@ namespace InvertedTomato.IO {
 
 			Assert.Equal(expected, output);
 		}
+
 
 		[Fact]
 		public void AllCrcAlgorithms() {
