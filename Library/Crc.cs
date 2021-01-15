@@ -151,15 +151,16 @@ namespace InvertedTomato.IO {
 		/// <summary>
 		///     Compute the hash of a byte array. This can be called multiple times for consecutive blocks of input.
 		/// </summary>
-		public void Append(Byte[] input) {
+		public Crc Append(Byte[] input) {
 			Append(input, 0, input.Length);
+			return this;
 		}
 
 		/// <summary>
 		///     Compute the hash of a byte array with a defined offset and count. This can be called multiple times for
 		///     consecutive blocks of input.
 		/// </summary>
-		public void Append(Byte[] input, Int32 offset, Int32 count) {
+		public Crc Append(Byte[] input, Int32 offset, Int32 count) {
 			if (null == input) {
 				throw new ArgumentNullException(nameof(input));
 			}
@@ -181,6 +182,8 @@ namespace InvertedTomato.IO {
 					Current = PrecomputationTable[((Current >> ToRight) ^ input[i]) & 0xFF] ^ (Current << 8);
 				}
 			}
+
+			return this;
 		}
 
 		/// <summary>
