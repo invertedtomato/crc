@@ -28,10 +28,6 @@ namespace InvertedTomato.IO {
 			return new Crc("CRC-8/ITU", 8, 0x7, 0x0, false, false, 0x55, 0xA1);
 		}
 
-		public static crc CreateCrc8J1850() {
-			return new Crc("CRC-8/J1850", 8, 0x1D, 0xFF, false, false, 0xFF, 0xC4);
-		}
-
 		public static Crc CreateCrc8Maxim() {
 			return new Crc("CRC-8/MAXIM", 8, 0x31, 0x0, true, true, 0x0, 0xA1);
 		}
