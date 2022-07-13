@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-      <TargetFrameworks>netstandard1.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+      <TargetFrameworks>net6.0;netstandard1.0;netstandard2.0;netstandard2.1</TargetFrameworks>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
       <Title>InvertedTomato.Crc</Title>
       <Authors>InvertedTomato</Authors>
@@ -11,10 +11,12 @@
       <RepositoryUrl>https://github.com/invertedtomato/crc</RepositoryUrl>
       <RepositoryType>git</RepositoryType>
       <PackageTags>crc,crc8,crc16,crc32,crc64,hash</PackageTags>
-      <PackageVersion>1.1.2</PackageVersion>
+      <PackageVersion>1.2.0</PackageVersion>
       <AssemblyName>InvertedTomato.Crc</AssemblyName>
       <RootNamespace>InvertedTomato.IO</RootNamespace>
       <PackageId>InvertedTomato.Crc</PackageId>
+      <AssemblyVersion>1.2.0</AssemblyVersion>
+      <FileVersion>1.2.0</FileVersion>
   </PropertyGroup>
 
 </Project>
