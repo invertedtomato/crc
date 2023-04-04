@@ -4,16 +4,16 @@ using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace InvertedTomato.IO;
+namespace InvertedTomato.Crc.Tests;
 
 public class CrcTests {
 	public CrcTests(ITestOutputHelper output) {
-		Output = output;
+		_output = output;
 	}
 
-	private const String CHECK_STRING = "123456789";
+	private const String CheckString = "123456789";
 
-	private readonly ITestOutputHelper Output;
+	private readonly ITestOutputHelper _output;
 
 	[Theory]
 	[InlineData("123456789", 0x29B1)]
@@ -66,15 +66,15 @@ public class CrcTests {
 	[Fact]
 	public void AllCrcAlgorithms() {
 		// Convert check to byte array;
-		var input = Encoding.ASCII.GetBytes(CHECK_STRING);
+		var input = Encoding.ASCII.GetBytes(CheckString);
 
 		// Loop through all known CRC specifications
 		var type = typeof(CrcAlgorithm);
 		foreach (var method in type.GetMethods(BindingFlags.Static |
 		                                       BindingFlags.Public)) {
 			// Select specification for testing
-			var crc = (CrcAlgorithm) method.Invoke(null, new Object[] { });
-			Output.WriteLine($"Testing {crc.Name}... ");
+			var crc = (CrcAlgorithm) method.Invoke(null, new Object[] { })!;
+			_output.WriteLine($"Testing {crc.Name}... ");
 
 			// Determine expected output
 			var expected = crc.Check.ToHexString();
@@ -91,13 +91,11 @@ public class CrcTests {
 
 	[Fact]
 	public void Crc16XModem() {
-		String expected;
-		String output;
 		var crc = CrcAlgorithm.CreateCrc16Xmodem();
 
 		// 0 bytes
-		expected = Crc16Ccitt.ComputeInteger(new Byte[] { }).ToHexString(2);
-		output = crc.ToHexString();
+		var expected = Crc16Ccitt.ComputeInteger(new Byte[] { }).ToHexString(2);
+		var output = crc.ToHexString();
 		Assert.Equal(expected, output);
 
 		// 1 byte complete
@@ -106,7 +104,7 @@ public class CrcTests {
 			expected = Crc16Ccitt.ComputeInteger(new[] {i}).ToHexString(2);
 
 			// Compute actual
-			crc.Append(new Byte[] {i});
+			crc.Append(new[] {i});
 			output = crc.ToHexString();
 			crc.Clear();
 

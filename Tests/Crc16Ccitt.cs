@@ -1,6 +1,6 @@
 using System;
 
-namespace InvertedTomato.IO;
+namespace InvertedTomato.Crc.Tests;
 
 public static class Crc16Ccitt // Rival test algorithm adapted from http://sanity-free.org/133/crc_16_ccitt_in_csharp.html
 {
@@ -9,10 +9,9 @@ public static class Crc16Ccitt // Rival test algorithm adapted from http://sanit
 
 	static Crc16Ccitt() {
 		// Precompute table
-		UInt16 temp, a;
 		for (var i = 0; i < Table.Length; ++i) {
-			temp = 0;
-			a = (UInt16) (i << 8);
+			UInt16 temp = 0;
+			var a = (UInt16) (i << 8);
 			for (var j = 0; j < 8; ++j) {
 				if (((temp ^ a) & 0x8000) != 0) {
 					temp = (UInt16) ((temp << 1) ^ Poly);
@@ -28,22 +27,19 @@ public static class Crc16Ccitt // Rival test algorithm adapted from http://sanit
 	}
 
 	public static UInt16 ComputeInteger(Byte[] bytes) {
-		if (null == bytes) {
-			throw new ArgumentNullException(nameof(bytes));
-		}
+		if (null == bytes) throw new ArgumentNullException(nameof(bytes));
 
 		UInt16 crc = 0;
-		for (var i = 0; i < bytes.Length; ++i) {
-			crc = (UInt16) ((crc << 8) ^ Table[(crc >> 8) ^ (0xff & bytes[i])]);
+		foreach (var b in bytes)
+		{
+			crc = (UInt16) ((crc << 8) ^ Table[(crc >> 8) ^ (0xff & b)]);
 		}
 
 		return crc;
 	}
 
 	public static Byte[] ComputeBytes(Byte[] bytes) {
-		if (null == bytes) {
-			throw new ArgumentNullException(nameof(bytes));
-		}
+		if (null == bytes) throw new ArgumentNullException(nameof(bytes));
 
 		var crc = ComputeInteger(bytes);
 		return BitConverter.GetBytes(crc);
