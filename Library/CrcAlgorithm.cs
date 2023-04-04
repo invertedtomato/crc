@@ -1,7 +1,10 @@
 ﻿using System;
+
+// ReSharper disable UnusedMethodReturnValue.Global
 // ReSharper disable UnusedType.Global
 // ReSharper disable NotAccessedField.Global
 // ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMember.Global
 
 namespace InvertedTomato.Crc;
 
@@ -214,10 +217,7 @@ public class CrcAlgorithm
     /// <summary>
     ///     Retrieve the CRC of the bytes that have been input so far.
     /// </summary>
-    public String ToHexString()
-    {
-        return ToByteArray().ToHexString();
-    }
+    public String ToHexString() => ToByteArray().ToHexString();
 
     /// <summary>
     ///     Reset the state so that a new set of data can be input without being affected by previous sets.
@@ -246,250 +246,57 @@ public class CrcAlgorithm
         return output;
     }
 
-    public static CrcAlgorithm CreateCrc8()
-    {
-        return new("CRC-8", 8, 0x7, 0x0, false, false, 0x0, 0xF4);
-    }
+    public static CrcAlgorithm CreateCrc8() => new("CRC-8", 8, 0x7, 0x0, false, false, 0x0, 0xF4);
+    public static CrcAlgorithm CreateCrc8Cdma2000() => new("CRC-8/CDMA2000", 8, 0x9B, 0xFF, false, false, 0x0, 0xDA);
+    public static CrcAlgorithm CreateCrc8Darc() => new("CRC-8/DARC", 8, 0x39, 0x0, true, true, 0x0, 0x15);
+    public static CrcAlgorithm CreateCrc8DvbS2() => new("CRC-8/DVB-S2", 8, 0xD5, 0x0, false, false, 0x0, 0xBC);
+    public static CrcAlgorithm CreateCrc8Ebu() => new("CRC-8/EBU", 8, 0x1D, 0xFF, true, true, 0x0, 0x97);
+    public static CrcAlgorithm CreateCrc8ICode() => new("CRC-8/I-CODE", 8, 0x1D, 0xFD, false, false, 0x0, 0x7E);
+    public static CrcAlgorithm CreateCrc8Itu() => new("CRC-8/ITU", 8, 0x7, 0x0, false, false, 0x55, 0xA1);
+    public static CrcAlgorithm CreateCrc8Maxim() => new("CRC-8/MAXIM", 8, 0x31, 0x0, true, true, 0x0, 0xA1);
+    public static CrcAlgorithm CreateCrc8Rohc() => new("CRC-8/ROHC", 8, 0x7, 0xFF, true, true, 0x0, 0xD0);
+    public static CrcAlgorithm CreateCrc8Wcdma() => new("CRC-8/WCDMA", 8, 0x9B, 0x0, true, true, 0x0, 0x25);
+    public static CrcAlgorithm CreateCrc16CcittFalse() => new("CRC-16/CCITT-FALSE", 16, 0x1021, 0xFFFF, false, false, 0x0, 0x29B1);
+    public static CrcAlgorithm CreateCrc16Arc() => new("CRC-16/ARC", 16, 0x8005, 0x0, true, true, 0x0, 0xBB3D);
+    public static CrcAlgorithm CreateCrc16AugCcitt() => new("CRC-16/AUG-CCITT", 16, 0x1021, 0x1D0F, false, false, 0x0, 0xE5CC);
+    public static CrcAlgorithm CreateCrc16Buypass() => new("CRC-16/BUYPASS", 16, 0x8005, 0x0, false, false, 0x0, 0xFEE8);
+    public static CrcAlgorithm CreateCrc16Cdma2000() => new("CRC-16/CDMA2000", 16, 0xC867, 0xFFFF, false, false, 0x0, 0x4C06);
+    public static CrcAlgorithm CreateCrc16Dds110() => new("CRC-16/DDS-110", 16, 0x8005, 0x800D, false, false, 0x0, 0x9ECF);
+    public static CrcAlgorithm CreateCrc16DectR() => new("CRC-16/DECT-R", 16, 0x589, 0x0, false, false, 0x1, 0x7E);
+    public static CrcAlgorithm CreateCrc16DectX() => new("CRC-16/DECT-X", 16, 0x589, 0x0, false, false, 0x0, 0x7F);
+    public static CrcAlgorithm CreateCrc16Dnp() => new("CRC-16/DNP", 16, 0x3D65, 0x0, true, true, 0xFFFF, 0xEA82);
+    public static CrcAlgorithm CreateCrc16En13757() => new("CRC-16/EN-13757", 16, 0x3D65, 0x0, false, false, 0xFFFF, 0xC2B7);
+    public static CrcAlgorithm CreateCrc16Genibus() => new("CRC-16/GENIBUS", 16, 0x1021, 0xFFFF, false, false, 0xFFFF, 0xD64E);
+    public static CrcAlgorithm CreateCrc16Maxim() => new("CRC-16/MAXIM", 16, 0x8005, 0x0, true, true, 0xFFFF, 0x44C2);
+    public static CrcAlgorithm CreateCrc16Mcrf4Xx() => new("CRC-16/MCRF4XX", 16, 0x1021, 0xFFFF, true, true, 0x0, 0x6F91);
+    public static CrcAlgorithm CreateCrc16Riello() => new("CRC-16/RIELLO", 16, 0x1021, 0xB2AA, true, true, 0x0, 0x63D0);
+    public static CrcAlgorithm CreateCrc16T10Dif() => new("CRC-16/T10-DIF", 16, 0x8BB7, 0x0, false, false, 0x0, 0xD0DB);
+    public static CrcAlgorithm CreateCrc16Teledisk() => new("CRC-16/TELEDISK", 16, 0xA097, 0x0, false, false, 0x0, 0xFB3);
+    public static CrcAlgorithm CreateCrc16Tms37157() => new("CRC-16/TMS37157", 16, 0x1021, 0x89EC, true, true, 0x0, 0x26B1);
+    public static CrcAlgorithm CreateCrc16Usb() => new("CRC-16/USB", 16, 0x8005, 0xFFFF, true, true, 0xFFFF, 0xB4C8);
+    public static CrcAlgorithm CreateCrcA() => new("CRC-A", 16, 0x1021, 0xC6C6, true, true, 0x0, 0xBF05);
+    public static CrcAlgorithm CreateCrc16Kermit() => new("CRC-16/KERMIT", 16, 0x1021, 0x0, true, true, 0x0, 0x2189);
+    public static CrcAlgorithm CreateCrc16Modbus() => new("CRC-16/MODBUS", 16, 0x8005, 0xFFFF, true, true, 0x0, 0x4B37);
+    public static CrcAlgorithm CreateCrc16X25() => new("CRC-16/X-25", 16, 0x1021, 0xFFFF, true, true, 0xFFFF, 0x906E);
+    public static CrcAlgorithm CreateCrc16Xmodem() => new("CRC-16/XMODEM", 16, 0x1021, 0x0, false, false, 0x0, 0x31C3);
+    public static CrcAlgorithm CreateCrc24() => new("CRC-24", 24, 0x864CFB, 0xB704CE, false, false, 0x0, 0x21CF02);
+    public static CrcAlgorithm CreateCrc24FlexrayA() => new("CRC-24/FLEXRAY-A", 24, 0x5D6DCB, 0xFEDCBA, false, false, 0x0, 0x7979BD);
+    public static CrcAlgorithm CreateCrc24FlexrayB() => new("CRC-24/FLEXRAY-B", 24, 0x5D6DCB, 0xABCDEF, false, false, 0x0, 0x1F23B8);
+    public static CrcAlgorithm CreateCrc32() => new("CRC-32", 32, 0x04C11DB7, 0xFFFFFFFF, true, true, 0xFFFFFFFF, 0xCBF43926);
+    public static CrcAlgorithm CreateCrc32Bzip2() => new("CRC-32/BZIP2", 32, 0x04C11DB7, 0xFFFFFFFF, false, false, 0xFFFFFFFF, 0xFC891918);
+    public static CrcAlgorithm CreateCrc32C() => new("CRC-32C", 32, 0x1EDC6F41, 0xFFFFFFFF, true, true, 0xFFFFFFFF, 0xE3069283);
+    public static CrcAlgorithm CreateCrc32D() => new("CRC-32D", 32, 0xA833982B, 0xFFFFFFFF, true, true, 0xFFFFFFFF, 0x87315576);
+    public static CrcAlgorithm CreateCrc32Jamcrc() => new("CRC-32/JAMCRC", 32, 0x04C11DB7, 0xFFFFFFFF, true, true, 0x00000000, 0x340BC6D9);
+    public static CrcAlgorithm CreateCrc32Mpeg2() => new("CRC-32/MPEG-2", 32, 0x04C11DB7, 0xFFFFFFFF, false, false, 0x00000000, 0x0376E6E7);
+    public static CrcAlgorithm CreateCrc32Posix() => new("CRC-32/POSIX", 32, 0x04C11DB7, 0x00000000, false, false, 0xFFFFFFFF, 0x765E7680);
+    public static CrcAlgorithm CreateCrc32Q() => new("CRC-32Q", 32, 0x814141AB, 0x00000000, false, false, 0x00000000, 0x3010BF7F);
+    public static CrcAlgorithm CreateCrc32Xfer() => new("CRC-32/XFER", 32, 0x000000AF, 0x00000000, false, false, 0x00000000, 0xBD0BE338);
+    public static CrcAlgorithm CreateCrc40Gsm() => new("CRC-40/GSM", 40, 0x4820009, 0x0, false, false, 0xFFFFFFFFFF, 0xD4164FC646);
+    public static CrcAlgorithm CreateCrc64() => new("CRC-64", 64, 0x42F0E1EBA9EA3693, 0x00000000, false, false, 0x00000000, 0x6C40DF5F0B497347);
 
-    public static CrcAlgorithm CreateCrc8Cdma2000()
-    {
-        return new("CRC-8/CDMA2000", 8, 0x9B, 0xFF, false, false, 0x0, 0xDA);
-    }
+    public static CrcAlgorithm CreateCrc64We() => new("CRC-64/WE", 64, 0x42F0E1EBA9EA3693, 0xFFFFFFFFFFFFFFFF, false, false, 0xFFFFFFFFFFFFFFFF,
+        0x62EC59E3F1A4F00A);
 
-    public static CrcAlgorithm CreateCrc8Darc()
-    {
-        return new("CRC-8/DARC", 8, 0x39, 0x0, true, true, 0x0, 0x15);
-    }
-
-    public static CrcAlgorithm CreateCrc8DvbS2()
-    {
-        return new("CRC-8/DVB-S2", 8, 0xD5, 0x0, false, false, 0x0, 0xBC);
-    }
-
-    public static CrcAlgorithm CreateCrc8Ebu()
-    {
-        return new("CRC-8/EBU", 8, 0x1D, 0xFF, true, true, 0x0, 0x97);
-    }
-
-    public static CrcAlgorithm CreateCrc8ICode()
-    {
-        return new("CRC-8/I-CODE", 8, 0x1D, 0xFD, false, false, 0x0, 0x7E);
-    }
-
-    public static CrcAlgorithm CreateCrc8Itu()
-    {
-        return new("CRC-8/ITU", 8, 0x7, 0x0, false, false, 0x55, 0xA1);
-    }
-
-    public static CrcAlgorithm CreateCrc8Maxim()
-    {
-        return new("CRC-8/MAXIM", 8, 0x31, 0x0, true, true, 0x0, 0xA1);
-    }
-
-    public static CrcAlgorithm CreateCrc8Rohc()
-    {
-        return new("CRC-8/ROHC", 8, 0x7, 0xFF, true, true, 0x0, 0xD0);
-    }
-
-    public static CrcAlgorithm CreateCrc8Wcdma()
-    {
-        return new("CRC-8/WCDMA", 8, 0x9B, 0x0, true, true, 0x0, 0x25);
-    }
-
-    public static CrcAlgorithm CreateCrc16CcittFalse()
-    {
-        return new("CRC-16/CCITT-FALSE", 16, 0x1021, 0xFFFF, false, false, 0x0, 0x29B1);
-    }
-
-    public static CrcAlgorithm CreateCrc16Arc()
-    {
-        return new("CRC-16/ARC", 16, 0x8005, 0x0, true, true, 0x0, 0xBB3D);
-    }
-
-    public static CrcAlgorithm CreateCrc16AugCcitt()
-    {
-        return new("CRC-16/AUG-CCITT", 16, 0x1021, 0x1D0F, false, false, 0x0, 0xE5CC);
-    }
-
-    public static CrcAlgorithm CreateCrc16Buypass()
-    {
-        return new("CRC-16/BUYPASS", 16, 0x8005, 0x0, false, false, 0x0, 0xFEE8);
-    }
-
-    public static CrcAlgorithm CreateCrc16Cdma2000()
-    {
-        return new("CRC-16/CDMA2000", 16, 0xC867, 0xFFFF, false, false, 0x0, 0x4C06);
-    }
-
-    public static CrcAlgorithm CreateCrc16Dds110()
-    {
-        return new("CRC-16/DDS-110", 16, 0x8005, 0x800D, false, false, 0x0, 0x9ECF);
-    }
-
-    public static CrcAlgorithm CreateCrc16DectR()
-    {
-        return new("CRC-16/DECT-R", 16, 0x589, 0x0, false, false, 0x1, 0x7E);
-    }
-
-    public static CrcAlgorithm CreateCrc16DectX()
-    {
-        return new("CRC-16/DECT-X", 16, 0x589, 0x0, false, false, 0x0, 0x7F);
-    }
-
-    public static CrcAlgorithm CreateCrc16Dnp()
-    {
-        return new("CRC-16/DNP", 16, 0x3D65, 0x0, true, true, 0xFFFF, 0xEA82);
-    }
-
-    public static CrcAlgorithm CreateCrc16En13757()
-    {
-        return new("CRC-16/EN-13757", 16, 0x3D65, 0x0, false, false, 0xFFFF, 0xC2B7);
-    }
-
-    public static CrcAlgorithm CreateCrc16Genibus()
-    {
-        return new("CRC-16/GENIBUS", 16, 0x1021, 0xFFFF, false, false, 0xFFFF, 0xD64E);
-    }
-
-    public static CrcAlgorithm CreateCrc16Maxim()
-    {
-        return new("CRC-16/MAXIM", 16, 0x8005, 0x0, true, true, 0xFFFF, 0x44C2);
-    }
-
-    public static CrcAlgorithm CreateCrc16Mcrf4Xx()
-    {
-        return new("CRC-16/MCRF4XX", 16, 0x1021, 0xFFFF, true, true, 0x0, 0x6F91);
-    }
-
-    public static CrcAlgorithm CreateCrc16Riello()
-    {
-        return new("CRC-16/RIELLO", 16, 0x1021, 0xB2AA, true, true, 0x0, 0x63D0);
-    }
-
-    public static CrcAlgorithm CreateCrc16T10Dif()
-    {
-        return new("CRC-16/T10-DIF", 16, 0x8BB7, 0x0, false, false, 0x0, 0xD0DB);
-    }
-
-    public static CrcAlgorithm CreateCrc16Teledisk()
-    {
-        return new("CRC-16/TELEDISK", 16, 0xA097, 0x0, false, false, 0x0, 0xFB3);
-    }
-
-    public static CrcAlgorithm CreateCrc16Tms37157()
-    {
-        return new("CRC-16/TMS37157", 16, 0x1021, 0x89EC, true, true, 0x0, 0x26B1);
-    }
-
-    public static CrcAlgorithm CreateCrc16Usb()
-    {
-        return new("CRC-16/USB", 16, 0x8005, 0xFFFF, true, true, 0xFFFF, 0xB4C8);
-    }
-
-    public static CrcAlgorithm CreateCrcA()
-    {
-        return new("CRC-A", 16, 0x1021, 0xC6C6, true, true, 0x0, 0xBF05);
-    }
-
-    public static CrcAlgorithm CreateCrc16Kermit()
-    {
-        return new("CRC-16/KERMIT", 16, 0x1021, 0x0, true, true, 0x0, 0x2189);
-    }
-
-    public static CrcAlgorithm CreateCrc16Modbus()
-    {
-        return new("CRC-16/MODBUS", 16, 0x8005, 0xFFFF, true, true, 0x0, 0x4B37);
-    }
-
-    public static CrcAlgorithm CreateCrc16X25()
-    {
-        return new("CRC-16/X-25", 16, 0x1021, 0xFFFF, true, true, 0xFFFF, 0x906E);
-    }
-
-    public static CrcAlgorithm CreateCrc16Xmodem()
-    {
-        return new("CRC-16/XMODEM", 16, 0x1021, 0x0, false, false, 0x0, 0x31C3);
-    }
-
-    public static CrcAlgorithm CreateCrc24()
-    {
-        return new("CRC-24", 24, 0x864CFB, 0xB704CE, false, false, 0x0, 0x21CF02);
-    }
-
-    public static CrcAlgorithm CreateCrc24FlexrayA()
-    {
-        return new("CRC-24/FLEXRAY-A", 24, 0x5D6DCB, 0xFEDCBA, false, false, 0x0, 0x7979BD);
-    }
-
-    public static CrcAlgorithm CreateCrc24FlexrayB()
-    {
-        return new("CRC-24/FLEXRAY-B", 24, 0x5D6DCB, 0xABCDEF, false, false, 0x0, 0x1F23B8);
-    }
-
-    public static CrcAlgorithm CreateCrc32()
-    {
-        return new("CRC-32", 32, 0x04C11DB7, 0xFFFFFFFF, true, true, 0xFFFFFFFF, 0xCBF43926);
-    }
-
-    public static CrcAlgorithm CreateCrc32Bzip2()
-    {
-        return new("CRC-32/BZIP2", 32, 0x04C11DB7, 0xFFFFFFFF, false, false, 0xFFFFFFFF, 0xFC891918);
-    }
-
-    public static CrcAlgorithm CreateCrc32C()
-    {
-        return new("CRC-32C", 32, 0x1EDC6F41, 0xFFFFFFFF, true, true, 0xFFFFFFFF, 0xE3069283);
-    }
-
-    public static CrcAlgorithm CreateCrc32D()
-    {
-        return new("CRC-32D", 32, 0xA833982B, 0xFFFFFFFF, true, true, 0xFFFFFFFF, 0x87315576);
-    }
-
-    public static CrcAlgorithm CreateCrc32Jamcrc()
-    {
-        return new("CRC-32/JAMCRC", 32, 0x04C11DB7, 0xFFFFFFFF, true, true, 0x00000000, 0x340BC6D9);
-    }
-
-    public static CrcAlgorithm CreateCrc32Mpeg2()
-    {
-        return new("CRC-32/MPEG-2", 32, 0x04C11DB7, 0xFFFFFFFF, false, false, 0x00000000, 0x0376E6E7);
-    }
-
-    public static CrcAlgorithm CreateCrc32Posix()
-    {
-        return new("CRC-32/POSIX", 32, 0x04C11DB7, 0x00000000, false, false, 0xFFFFFFFF, 0x765E7680);
-    }
-
-    public static CrcAlgorithm CreateCrc32Q()
-    {
-        return new("CRC-32Q", 32, 0x814141AB, 0x00000000, false, false, 0x00000000, 0x3010BF7F);
-    }
-
-    public static CrcAlgorithm CreateCrc32Xfer()
-    {
-        return new("CRC-32/XFER", 32, 0x000000AF, 0x00000000, false, false, 0x00000000, 0xBD0BE338);
-    }
-
-    public static CrcAlgorithm CreateCrc40Gsm()
-    {
-        return new("CRC-40/GSM", 40, 0x4820009, 0x0, false, false, 0xFFFFFFFFFF, 0xD4164FC646);
-    }
-
-    public static CrcAlgorithm CreateCrc64()
-    {
-        return new("CRC-64", 64, 0x42F0E1EBA9EA3693, 0x00000000, false, false, 0x00000000, 0x6C40DF5F0B497347);
-    }
-
-    public static CrcAlgorithm CreateCrc64We()
-    {
-        return new("CRC-64/WE", 64, 0x42F0E1EBA9EA3693, 0xFFFFFFFFFFFFFFFF, false, false, 0xFFFFFFFFFFFFFFFF,
-            0x62EC59E3F1A4F00A);
-    }
-
-    public static CrcAlgorithm CreateCrc64Xz()
-    {
-        return new("CRC-64/XZ", 64, 0x42F0E1EBA9EA3693, 0xFFFFFFFFFFFFFFFF, true, true, 0xFFFFFFFFFFFFFFFF,
-            0x995DC9BBDF1939FA);
-    }
+    public static CrcAlgorithm CreateCrc64Xz() => new("CRC-64/XZ", 64, 0x42F0E1EBA9EA3693, 0xFFFFFFFFFFFFFFFF, true, true, 0xFFFFFFFFFFFFFFFF,
+        0x995DC9BBDF1939FA);
 }
