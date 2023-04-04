@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using System.Text;
-using InvertedTomato.IO.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -74,7 +73,7 @@ public class CrcTests {
 		foreach (var method in type.GetMethods(BindingFlags.Static |
 		                                       BindingFlags.Public)) {
 			// Select specification for testing
-			var crc = (Crc) method.Invoke(null, new Object[] { });
+			var crc = (CrcAlgorithm) method.Invoke(null, new Object[] { });
 			Output.WriteLine($"Testing {crc.Name}... ");
 
 			// Determine expected output

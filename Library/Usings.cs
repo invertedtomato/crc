@@ -1,0 +1,1 @@
+global using InvertedTomato.Crc.Extensions;
