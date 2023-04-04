@@ -53,7 +53,7 @@ public class CrcAlgorithm
     /// <summary>
     ///     Mask used internally to hide unwanted data in the 64bit working registers.
     /// </summary>
-    private readonly UInt64 Mask;
+    private readonly UInt64 _mask;
 
     /// <summary>
     ///     Name given to the algorithm.
@@ -80,9 +80,9 @@ public class CrcAlgorithm
     /// <summary>
     ///     Lookup table that is populated at construction time to facilitate fastest possible computation.
     /// </summary>
-    private readonly UInt64[] PrecomputationTable = new UInt64[256];
+    private readonly UInt64[] _preComputationTable = new UInt64[256];
 
-    private readonly Int32 ToRight;
+    private readonly Int32 _toRight;
 
     /// <summary>
     ///     Width of the algorithm expressed in bits.
@@ -95,7 +95,7 @@ public class CrcAlgorithm
     /// <summary>
     ///     Accumulated CRC-32C of all buffers processed so far.
     /// </summary>
-    private UInt64 Current;
+    private UInt64 _current;
 
 
     public CrcAlgorithm(String name, Int32 width, UInt64 polynomial, UInt64 initial, Boolean isInputReflected, Boolean isOutputReflected, UInt64 outputXor, UInt64 check = 0)
@@ -113,10 +113,10 @@ public class CrcAlgorithm
         Check = check;
 
         // Compute mask
-        Mask = UInt64.MaxValue >> (64 - width);
+        _mask = UInt64.MaxValue >> (64 - width);
 
         // Create lookup table
-        for (var i = 0; i < PrecomputationTable.Length; i++)
+        for (var i = 0; i < _preComputationTable.Length; i++)
         {
             var r = (UInt64)i;
             if (IsInputReflected)
@@ -133,14 +133,14 @@ public class CrcAlgorithm
 
             if (IsInputReflected) r = ReverseBits(r, width);
 
-            PrecomputationTable[i] = r;
+            _preComputationTable[i] = r;
         }
 
         // Calculate non-reflected output adjustment
         if (!IsOutputReflected)
         {
-            ToRight = Width - 8;
-            ToRight = ToRight < 0 ? 0 : ToRight;
+            _toRight = Width - 8;
+            _toRight = _toRight < 0 ? 0 : _toRight;
         }
 
         // Initialise the current value
@@ -170,10 +170,10 @@ public class CrcAlgorithm
 
         if (IsOutputReflected)
             for (var i = offset; i < offset + count; i++)
-                Current = PrecomputationTable[(Current ^ input[i]) & 0xFF] ^ (Current >> 8);
+                _current = _preComputationTable[(_current ^ input[i]) & 0xFF] ^ (_current >> 8);
         else
             for (var i = offset; i < offset + count; i++)
-                Current = PrecomputationTable[((Current >> ToRight) ^ input[i]) & 0xFF] ^ (Current << 8);
+                _current = _preComputationTable[((_current >> _toRight) ^ input[i]) & 0xFF] ^ (_current << 8);
 
         return this;
     }
@@ -184,7 +184,7 @@ public class CrcAlgorithm
     public UInt64 ToUInt64()
     {
         // Apply output XOR and mask unwanted bits
-        return (Current ^ OutputXor) & Mask;
+        return (_current ^ OutputXor) & _mask;
     }
 
 
@@ -229,7 +229,7 @@ public class CrcAlgorithm
     public void Clear()
     {
         // Initialise current
-        Current = IsOutputReflected ? ReverseBits(Initial, Width) : Initial;
+        _current = IsOutputReflected ? ReverseBits(Initial, Width) : Initial;
     }
 
 
