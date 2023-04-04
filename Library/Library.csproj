@@ -1,22 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-      <TargetFrameworks>net6.0;netstandard1.0;netstandard2.0;netstandard2.1</TargetFrameworks>
-      <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-      <Title>InvertedTomato.Crc</Title>
-      <Authors>InvertedTomato</Authors>
-      <Description>A flexible CRC implementation supporting most major algorithms. Also includes ability to support custom implementations.</Description>
-      <PackageProjectUrl>https://github.com/invertedtomato/crc</PackageProjectUrl>
-      <PackageLicenseUrl>https://github.com/invertedtomato/crc/blob/master/LICENSE</PackageLicenseUrl>
-      <RepositoryUrl>https://github.com/invertedtomato/crc</RepositoryUrl>
-      <RepositoryType>git</RepositoryType>
-      <PackageTags>crc,crc8,crc16,crc32,crc64,hash</PackageTags>
-      <PackageVersion>1.2.0</PackageVersion>
-      <AssemblyName>InvertedTomato.Crc</AssemblyName>
-      <RootNamespace>InvertedTomato.IO</RootNamespace>
-      <PackageId>InvertedTomato.Crc</PackageId>
-      <AssemblyVersion>1.2.0</AssemblyVersion>
-      <FileVersion>1.2.0</FileVersion>
-  </PropertyGroup>
+<PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>InvertedTomato.Crc</AssemblyName>
+    <RootNamespace>InvertedTomato.Crc</RootNamespace>
+    <TargetFrameworks>net7.0;netstandard1.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <LangVersion>11</LangVersion>
+    <Version>1.3.0</Version>
+    <Title>InvertedTomato.Crc</Title>
+    <Authors>Inverted Tomato</Authors>
+    <Description>A flexible CRC implementation supporting most major algorithms. Also includes ability to support custom implementations.</Description>
+    <Copyright>Inverted Tomato</Copyright>
+    <PackageProjectUrl>https://github.com/invertedtomato/crc</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/invertedtomato/crc/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/invertedtomato/crc</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>crc,crc8,crc16,crc32,crc64,hash</PackageTags>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>InvertedTomato.Crc</PackageId>
+    <Product>InvertedTomato.Crc</Product>
+    <AssemblyVersion>1.3.0</AssemblyVersion>
+    <FileVersion>1.3.0</FileVersion>
+    <PackageReleaseNotes>Bumped .NET version</PackageReleaseNotes>
+</PropertyGroup>
 
+<PropertyGroup>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+</PropertyGroup>
+
+<ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="\" />
+</ItemGroup>
 </Project>
