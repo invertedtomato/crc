@@ -31,7 +31,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>bin\Debug\InvertedTomato.Crc.xml</DocumentationFile>
+      <DocumentationFile>InvertedTomato.Crc.xml</DocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -40,5 +40,12 @@
 
     <ItemGroup>
         <None Include="../README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="InvertedTomato.Crc.xml" />
+      <Content Include="InvertedTomato.Crc.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 </Project>
