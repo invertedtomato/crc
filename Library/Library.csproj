@@ -24,6 +24,9 @@
         <AssemblyVersion>1.3.3</AssemblyVersion>
         <FileVersion>1.3.3</FileVersion>
         <PackageReleaseNotes>Bumped .NET version</PackageReleaseNotes>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>InvertedTomato.Crc.snk</AssemblyOriginatorKeyFile>
+        <PublicSign>true</PublicSign>
     </PropertyGroup>
 
     <PropertyGroup>
