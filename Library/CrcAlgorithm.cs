@@ -79,14 +79,7 @@ public class CrcAlgorithm
     ///     reflected.
     /// </remarks>
     public readonly UInt64 Polynomial;
-
-    /// <summary>
-    ///     Lookup table that is populated at construction time to facilitate fastest possible computation.
-    /// </summary>
-    private readonly UInt64[] _preComputationTable = new UInt64[256];
-
-    private readonly Int32 _toRight;
-
+    
     /// <summary>
     ///     Width of the algorithm expressed in bits.
     /// </summary>
@@ -95,6 +88,13 @@ public class CrcAlgorithm
     /// </remarks>
     public readonly Int32 Width;
 
+    /// <summary>
+    ///     Lookup table that is populated at construction time to facilitate fastest possible computation.
+    /// </summary>
+    private readonly UInt64[] _preComputationTable = new UInt64[256];
+
+    private readonly Int32 _toRight;
+    
     /// <summary>
     ///     Accumulated CRC-32C of all buffers processed so far.
     /// </summary>
@@ -108,7 +108,7 @@ public class CrcAlgorithm
     /// </exception>
     public CrcAlgorithm(String name, Int32 width, UInt64 polynomial, UInt64 initial, Boolean isInputReflected, Boolean isOutputReflected, UInt64 outputXor, UInt64 check = 0)
     {
-        if (width < 8 || width > 64) throw new ArgumentOutOfRangeException(nameof(width), "Must be a multiple of 8 and between 8 and 64.");
+        if (width is < 8 or > 64) throw new ArgumentOutOfRangeException(nameof(width), "Must be a multiple of 8 and between 8 and 64");
 
         // Store values
         Name = name;
@@ -172,7 +172,7 @@ public class CrcAlgorithm
     {
         if (null == input) throw new ArgumentNullException(nameof(input));
 
-        if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset));
+        if (offset < 0) throw new ArgumentOutOfRangeException(nameof(offset), "Must be at least zero");
 
         if (count < 0 || offset + count > input.Length) throw new ArgumentOutOfRangeException(nameof(count));
 
