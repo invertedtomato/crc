@@ -27,18 +27,16 @@
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>InvertedTomato.Crc.snk</AssemblyOriginatorKeyFile>
         <PublicSign>true</PublicSign>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>InvertedTomato.Crc.xml</DocumentationFile>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DocumentationFile>bin\Release\InvertedTomato.Crc.xml</DocumentationFile>
+    <PropertyGroup>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -47,8 +45,17 @@
 
     <ItemGroup>
       <None Remove="InvertedTomato.Crc.xml" />
-      <Content Include="InvertedTomato.Crc.xml">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+      <PackageReference Include="System.IO.Hashing" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+      <PackageReference Include="System.IO.Hashing" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+      <PackageReference Include="System.IO.Hashing" Version="7.0.0" />
     </ItemGroup>
 </Project>
