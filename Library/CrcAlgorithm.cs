@@ -290,6 +290,7 @@ public class CrcAlgorithm
     public static CrcAlgorithm CreateCrc32Mpeg2() => new("CRC-32/MPEG-2", 32, 0x04C11DB7, 0xFFFFFFFF, false, false, 0x00000000, 0x0376E6E7);
     public static CrcAlgorithm CreateCrc32Posix() => new("CRC-32/POSIX", 32, 0x04C11DB7, 0x00000000, false, false, 0xFFFFFFFF, 0x765E7680);
     public static CrcAlgorithm CreateCrc32Q() => new("CRC-32Q", 32, 0x814141AB, 0x00000000, false, false, 0x00000000, 0x3010BF7F);
+    public static CrcAlgorithm CreateCrc32Sata() => new("CRC-32/SATA", 32, 0x04C11DB7, 0x52325032, false, false, 0x00000000, 0xCF72AFE8);
     public static CrcAlgorithm CreateCrc32Xfer() => new("CRC-32/XFER", 32, 0x000000AF, 0x00000000, false, false, 0x00000000, 0xBD0BE338);
     public static CrcAlgorithm CreateCrc40Gsm() => new("CRC-40/GSM", 40, 0x4820009, 0x0, false, false, 0xFFFFFFFFFF, 0xD4164FC646);
     public static CrcAlgorithm CreateCrc64() => new("CRC-64", 64, 0x42F0E1EBA9EA3693, 0x00000000, false, false, 0x00000000, 0x6C40DF5F0B497347);
