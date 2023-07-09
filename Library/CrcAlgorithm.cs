@@ -100,7 +100,12 @@ public class CrcAlgorithm
     /// </summary>
     private UInt64 _current;
 
-
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="CrcAlgorithm"/> class.
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException">
+    ///     <paramref name="width"/> must be a multiple of 8 and between 8 and 64.
+    /// </exception>
     public CrcAlgorithm(String name, Int32 width, UInt64 polynomial, UInt64 initial, Boolean isInputReflected, Boolean isOutputReflected, UInt64 outputXor, UInt64 check = 0)
     {
         if (width < 8 || width > 64) throw new ArgumentOutOfRangeException(nameof(width), "Must be a multiple of 8 and between 8 and 64.");
@@ -190,7 +195,6 @@ public class CrcAlgorithm
         return (_current ^ OutputXor) & _mask;
     }
 
-
     /// <summary>
     ///     Retrieve the CRC of the bytes that have been input so far.
     /// </summary>
@@ -202,7 +206,7 @@ public class CrcAlgorithm
         // Convert to byte array
         var result = BitConverter.GetBytes(output);
 
-        // Correct for big-endian 
+        // Correct for big-endian
         if (!BitConverter.IsLittleEndian) Array.Reverse(result);
 
         // Trim unwanted bytes
@@ -232,7 +236,6 @@ public class CrcAlgorithm
         _current = IsOutputReflected ? ReverseBits(Initial, Width) : Initial;
     }
 
-
     private static UInt64 ReverseBits(UInt64 value, Int32 valueLength)
     {
         UInt64 output = 0;
@@ -246,42 +249,43 @@ public class CrcAlgorithm
         return output;
     }
 
-    public static CrcAlgorithm CreateCrc8() => new("CRC-8", 8, 0x7, 0x0, false, false, 0x0, 0xF4);
-    public static CrcAlgorithm CreateCrc8Cdma2000() => new("CRC-8/CDMA2000", 8, 0x9B, 0xFF, false, false, 0x0, 0xDA);
-    public static CrcAlgorithm CreateCrc8Darc() => new("CRC-8/DARC", 8, 0x39, 0x0, true, true, 0x0, 0x15);
-    public static CrcAlgorithm CreateCrc8DvbS2() => new("CRC-8/DVB-S2", 8, 0xD5, 0x0, false, false, 0x0, 0xBC);
-    public static CrcAlgorithm CreateCrc8Ebu() => new("CRC-8/EBU", 8, 0x1D, 0xFF, true, true, 0x0, 0x97);
-    public static CrcAlgorithm CreateCrc8ICode() => new("CRC-8/I-CODE", 8, 0x1D, 0xFD, false, false, 0x0, 0x7E);
-    public static CrcAlgorithm CreateCrc8Itu() => new("CRC-8/ITU", 8, 0x7, 0x0, false, false, 0x55, 0xA1);
-    public static CrcAlgorithm CreateCrc8Maxim() => new("CRC-8/MAXIM", 8, 0x31, 0x0, true, true, 0x0, 0xA1);
-    public static CrcAlgorithm CreateCrc8Rohc() => new("CRC-8/ROHC", 8, 0x7, 0xFF, true, true, 0x0, 0xD0);
-    public static CrcAlgorithm CreateCrc8Wcdma() => new("CRC-8/WCDMA", 8, 0x9B, 0x0, true, true, 0x0, 0x25);
-    public static CrcAlgorithm CreateCrc16CcittFalse() => new("CRC-16/CCITT-FALSE", 16, 0x1021, 0xFFFF, false, false, 0x0, 0x29B1);
-    public static CrcAlgorithm CreateCrc16Arc() => new("CRC-16/ARC", 16, 0x8005, 0x0, true, true, 0x0, 0xBB3D);
-    public static CrcAlgorithm CreateCrc16AugCcitt() => new("CRC-16/AUG-CCITT", 16, 0x1021, 0x1D0F, false, false, 0x0, 0xE5CC);
-    public static CrcAlgorithm CreateCrc16Buypass() => new("CRC-16/BUYPASS", 16, 0x8005, 0x0, false, false, 0x0, 0xFEE8);
-    public static CrcAlgorithm CreateCrc16Cdma2000() => new("CRC-16/CDMA2000", 16, 0xC867, 0xFFFF, false, false, 0x0, 0x4C06);
-    public static CrcAlgorithm CreateCrc16Dds110() => new("CRC-16/DDS-110", 16, 0x8005, 0x800D, false, false, 0x0, 0x9ECF);
-    public static CrcAlgorithm CreateCrc16DectR() => new("CRC-16/DECT-R", 16, 0x589, 0x0, false, false, 0x1, 0x7E);
-    public static CrcAlgorithm CreateCrc16DectX() => new("CRC-16/DECT-X", 16, 0x589, 0x0, false, false, 0x0, 0x7F);
-    public static CrcAlgorithm CreateCrc16Dnp() => new("CRC-16/DNP", 16, 0x3D65, 0x0, true, true, 0xFFFF, 0xEA82);
-    public static CrcAlgorithm CreateCrc16En13757() => new("CRC-16/EN-13757", 16, 0x3D65, 0x0, false, false, 0xFFFF, 0xC2B7);
+    // Common CRCs, based on https://crccalc.com/ and others
+    public static CrcAlgorithm CreateCrc8() => new("CRC-8", 8, 0x07, 0x00, false, false, 0x00, 0xF4);
+    public static CrcAlgorithm CreateCrc8Cdma2000() => new("CRC-8/CDMA2000", 8, 0x9B, 0xFF, false, false, 0x00, 0xDA);
+    public static CrcAlgorithm CreateCrc8Darc() => new("CRC-8/DARC", 8, 0x39, 0x00, true, true, 0x00, 0x15);
+    public static CrcAlgorithm CreateCrc8DvbS2() => new("CRC-8/DVB-S2", 8, 0xD5, 0x00, false, false, 0x00, 0xBC);
+    public static CrcAlgorithm CreateCrc8Ebu() => new("CRC-8/EBU", 8, 0x1D, 0xFF, true, true, 0x00, 0x97);
+    public static CrcAlgorithm CreateCrc8ICode() => new("CRC-8/I-CODE", 8, 0x1D, 0xFD, false, false, 0x00, 0x7E);
+    public static CrcAlgorithm CreateCrc8Itu() => new("CRC-8/ITU", 8, 0x07, 0x00, false, false, 0x55, 0xA1);
+    public static CrcAlgorithm CreateCrc8Maxim() => new("CRC-8/MAXIM", 8, 0x31, 0x00, true, true, 0x00, 0xA1);
+    public static CrcAlgorithm CreateCrc8Rohc() => new("CRC-8/ROHC", 8, 0x07, 0xFF, true, true, 0x00, 0xD0);
+    public static CrcAlgorithm CreateCrc8Wcdma() => new("CRC-8/WCDMA", 8, 0x9B, 0x00, true, true, 0x00, 0x25);
+    public static CrcAlgorithm CreateCrc16Arc() => new("CRC-16/ARC", 16, 0x8005, 0x0000, true, true, 0x0000, 0xBB3D);
+    public static CrcAlgorithm CreateCrc16AugCcitt() => new("CRC-16/AUG-CCITT", 16, 0x1021, 0x1D0F, false, false, 0x0000, 0xE5CC);
+    public static CrcAlgorithm CreateCrc16Buypass() => new("CRC-16/BUYPASS", 16, 0x8005, 0x0000, false, false, 0x0000, 0xFEE8);
+    public static CrcAlgorithm CreateCrc16CcittFalse() => new("CRC-16/CCITT-FALSE", 16, 0x1021, 0xFFFF, false, false, 0x0000, 0x29B1);
+    public static CrcAlgorithm CreateCrc16Cdma2000() => new("CRC-16/CDMA2000", 16, 0xC867, 0xFFFF, false, false, 0x0000, 0x4C06);
+    public static CrcAlgorithm CreateCrc16Dds110() => new("CRC-16/DDS-110", 16, 0x8005, 0x800D, false, false, 0x0000, 0x9ECF);
+    public static CrcAlgorithm CreateCrc16DectR() => new("CRC-16/DECT-R", 16, 0x0589, 0x0000, false, false, 0x0001, 0x007E);
+    public static CrcAlgorithm CreateCrc16DectX() => new("CRC-16/DECT-X", 16, 0x0589, 0x0000, false, false, 0x0000, 0x007F);
+    public static CrcAlgorithm CreateCrc16Dnp() => new("CRC-16/DNP", 16, 0x3D65, 0x0000, true, true, 0xFFFF, 0xEA82);
+    public static CrcAlgorithm CreateCrc16En13757() => new("CRC-16/EN-13757", 16, 0x3D65, 0x0000, false, false, 0xFFFF, 0xC2B7);
     public static CrcAlgorithm CreateCrc16Genibus() => new("CRC-16/GENIBUS", 16, 0x1021, 0xFFFF, false, false, 0xFFFF, 0xD64E);
-    public static CrcAlgorithm CreateCrc16Maxim() => new("CRC-16/MAXIM", 16, 0x8005, 0x0, true, true, 0xFFFF, 0x44C2);
-    public static CrcAlgorithm CreateCrc16Mcrf4Xx() => new("CRC-16/MCRF4XX", 16, 0x1021, 0xFFFF, true, true, 0x0, 0x6F91);
-    public static CrcAlgorithm CreateCrc16Riello() => new("CRC-16/RIELLO", 16, 0x1021, 0xB2AA, true, true, 0x0, 0x63D0);
-    public static CrcAlgorithm CreateCrc16T10Dif() => new("CRC-16/T10-DIF", 16, 0x8BB7, 0x0, false, false, 0x0, 0xD0DB);
-    public static CrcAlgorithm CreateCrc16Teledisk() => new("CRC-16/TELEDISK", 16, 0xA097, 0x0, false, false, 0x0, 0xFB3);
-    public static CrcAlgorithm CreateCrc16Tms37157() => new("CRC-16/TMS37157", 16, 0x1021, 0x89EC, true, true, 0x0, 0x26B1);
+    public static CrcAlgorithm CreateCrc16Kermit() => new("CRC-16/KERMIT", 16, 0x1021, 0x0000, true, true, 0x0000, 0x2189);
+    public static CrcAlgorithm CreateCrc16Maxim() => new("CRC-16/MAXIM", 16, 0x8005, 0x0000, true, true, 0xFFFF, 0x44C2);
+    public static CrcAlgorithm CreateCrc16Mcrf4Xx() => new("CRC-16/MCRF4XX", 16, 0x1021, 0xFFFF, true, true, 0x0000, 0x6F91);
+    public static CrcAlgorithm CreateCrc16Modbus() => new("CRC-16/MODBUS", 16, 0x8005, 0xFFFF, true, true, 0x0000, 0x4B37);
+    public static CrcAlgorithm CreateCrc16Riello() => new("CRC-16/RIELLO", 16, 0x1021, 0xB2AA, true, true, 0x0000, 0x63D0);
+    public static CrcAlgorithm CreateCrc16T10Dif() => new("CRC-16/T10-DIF", 16, 0x8BB7, 0x0000, false, false, 0x0000, 0xD0DB);
+    public static CrcAlgorithm CreateCrc16Teledisk() => new("CRC-16/TELEDISK", 16, 0xA097, 0x0000, false, false, 0x0000, 0xFB3);
+    public static CrcAlgorithm CreateCrc16Tms37157() => new("CRC-16/TMS37157", 16, 0x1021, 0x89EC, true, true, 0x0000, 0x26B1);
     public static CrcAlgorithm CreateCrc16Usb() => new("CRC-16/USB", 16, 0x8005, 0xFFFF, true, true, 0xFFFF, 0xB4C8);
-    public static CrcAlgorithm CreateCrcA() => new("CRC-A", 16, 0x1021, 0xC6C6, true, true, 0x0, 0xBF05);
-    public static CrcAlgorithm CreateCrc16Kermit() => new("CRC-16/KERMIT", 16, 0x1021, 0x0, true, true, 0x0, 0x2189);
-    public static CrcAlgorithm CreateCrc16Modbus() => new("CRC-16/MODBUS", 16, 0x8005, 0xFFFF, true, true, 0x0, 0x4B37);
     public static CrcAlgorithm CreateCrc16X25() => new("CRC-16/X-25", 16, 0x1021, 0xFFFF, true, true, 0xFFFF, 0x906E);
-    public static CrcAlgorithm CreateCrc16Xmodem() => new("CRC-16/XMODEM", 16, 0x1021, 0x0, false, false, 0x0, 0x31C3);
-    public static CrcAlgorithm CreateCrc24() => new("CRC-24", 24, 0x864CFB, 0xB704CE, false, false, 0x0, 0x21CF02);
-    public static CrcAlgorithm CreateCrc24FlexrayA() => new("CRC-24/FLEXRAY-A", 24, 0x5D6DCB, 0xFEDCBA, false, false, 0x0, 0x7979BD);
-    public static CrcAlgorithm CreateCrc24FlexrayB() => new("CRC-24/FLEXRAY-B", 24, 0x5D6DCB, 0xABCDEF, false, false, 0x0, 0x1F23B8);
+    public static CrcAlgorithm CreateCrc16Xmodem() => new("CRC-16/XMODEM", 16, 0x1021, 0x0000, false, false, 0x0000, 0x31C3);
+    public static CrcAlgorithm CreateCrcA() => new("CRC-A", 16, 0x1021, 0xC6C6, true, true, 0x0000, 0xBF05);
+    public static CrcAlgorithm CreateCrc24() => new("CRC-24", 24, 0x864CFB, 0xB704CE, false, false, 0x000000, 0x21CF02);
+    public static CrcAlgorithm CreateCrc24FlexrayA() => new("CRC-24/FLEXRAY-A", 24, 0x5D6DCB, 0xFEDCBA, false, false, 0x000000, 0x7979BD);
+    public static CrcAlgorithm CreateCrc24FlexrayB() => new("CRC-24/FLEXRAY-B", 24, 0x5D6DCB, 0xABCDEF, false, false, 0x000000, 0x1F23B8);
     public static CrcAlgorithm CreateCrc32() => new("CRC-32", 32, 0x04C11DB7, 0xFFFFFFFF, true, true, 0xFFFFFFFF, 0xCBF43926);
     public static CrcAlgorithm CreateCrc32Bzip2() => new("CRC-32/BZIP2", 32, 0x04C11DB7, 0xFFFFFFFF, false, false, 0xFFFFFFFF, 0xFC891918);
     public static CrcAlgorithm CreateCrc32C() => new("CRC-32C", 32, 0x1EDC6F41, 0xFFFFFFFF, true, true, 0xFFFFFFFF, 0xE3069283);
@@ -291,7 +295,7 @@ public class CrcAlgorithm
     public static CrcAlgorithm CreateCrc32Posix() => new("CRC-32/POSIX", 32, 0x04C11DB7, 0x00000000, false, false, 0xFFFFFFFF, 0x765E7680);
     public static CrcAlgorithm CreateCrc32Q() => new("CRC-32Q", 32, 0x814141AB, 0x00000000, false, false, 0x00000000, 0x3010BF7F);
     public static CrcAlgorithm CreateCrc32Xfer() => new("CRC-32/XFER", 32, 0x000000AF, 0x00000000, false, false, 0x00000000, 0xBD0BE338);
-    public static CrcAlgorithm CreateCrc40Gsm() => new("CRC-40/GSM", 40, 0x4820009, 0x0, false, false, 0xFFFFFFFFFF, 0xD4164FC646);
+    public static CrcAlgorithm CreateCrc40Gsm() => new("CRC-40/GSM", 40, 0x4820009, 0x0000000000, false, false, 0xFFFFFFFFFF, 0xD4164FC646);
     public static CrcAlgorithm CreateCrc64() => new("CRC-64", 64, 0x42F0E1EBA9EA3693, 0x00000000, false, false, 0x00000000, 0x6C40DF5F0B497347);
 
     public static CrcAlgorithm CreateCrc64We() => new("CRC-64/WE", 64, 0x42F0E1EBA9EA3693, 0xFFFFFFFFFFFFFFFF, false, false, 0xFFFFFFFFFFFFFFFF,
