@@ -42,20 +42,4 @@
     <ItemGroup>
         <None Include="../README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="InvertedTomato.Crc.xml" />
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-      <PackageReference Include="System.IO.Hashing" Version="7.0.0" />
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-      <PackageReference Include="System.IO.Hashing" Version="7.0.0" />
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-      <PackageReference Include="System.IO.Hashing" Version="7.0.0" />
-    </ItemGroup>
 </Project>
