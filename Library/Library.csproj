@@ -26,7 +26,7 @@
         <PackageReleaseNotes>Made signing more compatible</PackageReleaseNotes>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>InvertedTomato.Crc.snk</AssemblyOriginatorKeyFile>
-        <PublicSign>true</PublicSign>
+        <!--<PublicSign>true</PublicSign>-->
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
