@@ -7,7 +7,7 @@
         <RootNamespace>InvertedTomato.Crc</RootNamespace>
         <TargetFrameworks>net7.0;netstandard1.0;netstandard2.0;netstandard2.1;net8.0</TargetFrameworks>
         <LangVersion>12</LangVersion>
-        <Version>1.4.0</Version>
+        <Version>1.4.1</Version>
         <Title>InvertedTomato.Crc</Title>
         <Authors>Inverted Tomato</Authors>
         <Description>A flexible CRC implementation supporting most major algorithms. Also includes ability to support custom implementations.</Description>
@@ -21,8 +21,8 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>InvertedTomato.Crc</PackageId>
         <Product>InvertedTomato.Crc</Product>
-        <AssemblyVersion>1.4.0</AssemblyVersion>
-        <FileVersion>1.4.0</FileVersion>
+        <AssemblyVersion>1.4.1</AssemblyVersion>
+        <FileVersion>1.4.1</FileVersion>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
